@@ -1,0 +1,27 @@
+#creation de fichier a base de dénotation pas a base de application proprétise
+server:
+  port: 7777
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
+spring:
+  application:
+    name: proxy
+
+  cloud:
+    gateway:
+      routes:
+        - id: ms-gestion-demande-documents
+          predicates:
+            - Path=/wathaequi/demande/**
+          filters:
+            - RewritePath=/wathaequi/demande/api/(?<s>.*), /${s}
+
+          uri: lb://ms-gestion-document
+
+
