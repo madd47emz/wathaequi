@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/Ms-Gestion-DemandeDocuments_V1/Ms-Gestion-DemandeDocuments_V1.iml" filepath="$PROJECT_DIR$/Ms-Gestion-DemandeDocuments_V1/Ms-Gestion-DemandeDocuments_V1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Wath.iml" filepath="$PROJECT_DIR$/Wath.iml" />
-    </modules>
-  </component>
-</project>
