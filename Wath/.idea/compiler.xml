@@ -7,11 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Ms-Gestion-DemandeDocuments_V1" />
-        <module name="Ms-Document" />
-        <module name="Eureka" />
-        <module name="Ms-utilisateur" />
-        <module name="Gateway2" />
-        <module name="Ms-Doc" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

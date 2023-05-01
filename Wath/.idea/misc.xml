@@ -4,12 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Ms-Gestion-DemandeDocuments_V1/pom.xml" />
-        <option value="$PROJECT_DIR$/Gateway2/pom.xml" />
-        <option value="$PROJECT_DIR$/Eureka/pom.xml" />
-        <option value="$PROJECT_DIR$/Ms-utilisateur/pom.xml" />
-        <option value="$PROJECT_DIR$/Ms-Document/pom.xml" />
         <option value="$PROJECT_DIR$/Ms-Documents-exemple/pom.xml" />
-        <option value="$PROJECT_DIR$/Ms-Doc/pom.xml" />
       </list>
     </option>
   </component>
