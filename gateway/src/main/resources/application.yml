@@ -1,0 +1,20 @@
+server:
+  port: 7778
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
+
+spring:
+  application:
+    name: proxy
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
