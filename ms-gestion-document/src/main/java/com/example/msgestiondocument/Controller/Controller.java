@@ -1,5 +1,4 @@
 package com.example.msgestiondocument.Controller;
-import com.example.msgestiondocument.Dao.AttachmentRepo;
 import com.example.msgestiondocument.Dao.PaperRepo;
 import com.example.msgestiondocument.Dto.PaperRequest;
 import com.example.msgestiondocument.Dto.birthCertificate;
@@ -16,7 +15,6 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ByteArrayResource;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -66,7 +64,7 @@ public class Controller {
 
     ) throws IOException, DocumentException {
 
-        PdfReader reader = new PdfReader("naissance.pdf");
+        PdfReader reader = new PdfReader("src/main/resources/naissance.pdf");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PdfStamper stamper = new PdfStamper(reader, outputStream);
         AcroFields fields = stamper.getAcroFields();
@@ -126,6 +124,7 @@ public class Controller {
 
 
     }
+
     @PutMapping("/document/folder/{id}")
     public List<String> setFolder(@RequestParam("file") MultipartFile[] file,@PathVariable("id") String id) throws IOException {
         List<Attachement> folder = new ArrayList<>();
@@ -168,6 +167,7 @@ public class Controller {
 
 
     }
+
     @DeleteMapping("/documents/{id}")
     public String deleteDocument(@PathVariable String id) {
         if(paperRepo.existsById(id)){

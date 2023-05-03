@@ -25,6 +25,9 @@ public class GatwayConfig {
                 .route("auth-service", r -> r.path("/auth/**")
                         .filters(f -> f.rewritePath("/auth/(?<s>.*)","/${s}").filter(filter))
                         .uri("http://localhost:8094/"))
+                .route("gestion-document-service", r -> r.path("/document/**")
+                        .filters(f -> f.rewritePath("/document/(?<s>.*)","/${s}").filter(filter))
+                        .uri("lb://ms-gestion-document"))
                 .build();
     }
 
