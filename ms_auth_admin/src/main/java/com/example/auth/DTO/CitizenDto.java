@@ -1,6 +1,6 @@
 package com.example.auth.DTO;
 
-import com.example.auth.model.Citizen;
+import com.example.auth.entities.Citizen;
 import lombok.Data;
 
 import java.util.Date;

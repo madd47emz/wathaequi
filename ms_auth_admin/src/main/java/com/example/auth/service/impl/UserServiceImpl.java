@@ -1,9 +1,9 @@
 package com.example.auth.service.impl;
 
 import com.example.auth.dao.AuthDao;
-import com.example.auth.model.Auth;
+import com.example.auth.entities.Auth;
 import com.example.auth.DTO.AuthDto;
-import com.example.auth.model.Role;
+import com.example.auth.entities.Role;
 import com.example.auth.service.RoleService;
 import com.example.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
