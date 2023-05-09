@@ -5,11 +5,12 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/ms-gestion-document/pom.xml" />
-        <option value="$PROJECT_DIR$/registry/pom.xml" />
-        <option value="$PROJECT_DIR$/gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
         <option value="$PROJECT_DIR$/ms-gestion-demande-document/pom.xml" />
         <option value="$PROJECT_DIR$/ms-gestion-document-v2/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_example_citizen/pom.xml" />
+        <option value="$PROJECT_DIR$/registry/pom.xml" />
       </list>
     </option>
   </component>

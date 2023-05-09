@@ -7,9 +7,10 @@ import com.example.auth.config.TokenProvider;
 import com.example.auth.dao.AuthDao;
 import com.example.auth.dao.CitizenDao;
 import com.example.auth.dao.RoleDao;
-import com.example.auth.model.*;
+import com.example.auth.entities.*;
 import com.example.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,11 +19,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class UserController {
         if(authentication.isAuthenticated()){
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication);
-            return ResponseEntity.ok(new AuthToken(token));
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,token).body(token);
         }
         else{
             throw new RuntimeException("invalid access");
@@ -79,12 +78,10 @@ public class UserController {
 
         Auth user = new Auth();
         Citizen citizen = new Citizen();
-        citizen.setNin(registerDto.getUsername());
         citizen.setName(registerDto.getName());
         citizen.setGender(registerDto.getGender());
         citizen.setStatus(registerDto.getStatus());
         citizen.setBirthdate(registerDto.getBirthdate());
-        user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
         List<Role> roles = new ArrayList<>();
@@ -97,12 +94,9 @@ public class UserController {
         if (registerDto.getAgent() == true) {
             roles.add(roleDao.findByName("AGENT"));
         }
-
-
         user .setRoles(roles);
-
-        userDao.save(user);
         citizenDao.save(citizen);
+        userDao.save(user);
 
 
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
@@ -123,10 +117,6 @@ public class UserController {
     public String delete(@PathVariable String nin){
            Auth auth=userDao.findByUsername(nin);
            Citizen citizen =citizenDao.findCitizensByNin(nin);
-           Long idAuth=auth.getId();
-           Long idCitizen= citizen.getId();
-          citizenDao.deleteById(idCitizen);
-          userDao.deleteById(idAuth);
         return "deleted";
     }
 }

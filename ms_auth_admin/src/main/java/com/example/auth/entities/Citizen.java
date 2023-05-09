@@ -1,18 +1,18 @@
-package com.example.auth.model;
+package com.example.auth.entities;
 
+import com.example.auth.util.AlgerianNINGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @Entity
-@Table(name = "citizen")
 @NoArgsConstructor
-
 public class Citizen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,4 @@ public class Citizen {
     private Date birthdate;
     private  String gender;
     private  String status;
-
 }

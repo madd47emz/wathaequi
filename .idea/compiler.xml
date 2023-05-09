@@ -7,22 +7,34 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+<<<<<<< HEAD
+=======
+        <module name="gateway (1)" />
+        <module name="Ms-Gestion-DemandeDocuments_V1" />
+>>>>>>> da71eeeff38f6b22677833188e180fc0c43fafa5
         <module name="registry" />
         <module name="auth" />
+        <module name="ms-gestion-document" />
         <module name="ms-gestion-document-v2" />
-        <module name="gateway" />
+        <module name="citizens" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+<<<<<<< HEAD
       <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
       <module name="ms-gestion-document" target="17" />
+=======
+      <module name="gateway" target="17" />
+>>>>>>> da71eeeff38f6b22677833188e180fc0c43fafa5
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Ms-Gestion-DemandeDocuments_V1" options="-parameters" />
       <module name="auth" options="-parameters" />
+      <module name="citizens" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="gateway (1)" options="-parameters" />
       <module name="ms-gestion-document" options="-parameters" />
       <module name="ms-gestion-document-v2" options="-parameters" />
       <module name="registry" options="-parameters" />

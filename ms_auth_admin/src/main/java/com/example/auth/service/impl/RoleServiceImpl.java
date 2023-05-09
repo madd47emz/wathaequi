@@ -1,7 +1,7 @@
 package com.example.auth.service.impl;
 
 import com.example.auth.dao.RoleDao;
-import com.example.auth.model.Role;
+import com.example.auth.entities.Role;
 import com.example.auth.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

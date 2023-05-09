@@ -1,7 +1,7 @@
 package com.example.auth.dao;
 
 
-import com.example.auth.model.Auth;
+import com.example.auth.entities.Auth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
