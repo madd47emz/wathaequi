@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ms-gestion-document" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-gestion-document-v2" vcs="Git" />
   </component>
 </project>
