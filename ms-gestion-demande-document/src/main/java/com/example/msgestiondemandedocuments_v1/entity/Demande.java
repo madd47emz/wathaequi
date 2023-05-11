@@ -1,12 +1,12 @@
-package com.example.msgestiondemandedocuments_v1.model;
+package com.example.msgestiondemandedocuments_v1.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
-import javax.swing.text.Document;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "Demande ")

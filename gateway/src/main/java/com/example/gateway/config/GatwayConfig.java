@@ -25,6 +25,9 @@ public class GatwayConfig {
                 .route("auth-service", r -> r.path("/auth/**")
                         .filters(f -> f.rewritePath("/auth/(?<s>.*)","/${s}").filter(filter))
                         .uri("http://localhost:8094/"))
+                .route("demande-service", r -> r.path("/demande/**")
+                  .filters(f -> f.rewritePath("/demande/(?<s>.*)","/${s}").filter(filter))
+                  .uri("http://localhost:8083/"))
                 .build();
     }
 

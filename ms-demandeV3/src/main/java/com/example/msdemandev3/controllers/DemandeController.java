@@ -1,7 +1,7 @@
-package com.example.msgestiondemandedocuments_v1.controllers;
+package com.example.msdemandev3.controllers;
 
-import com.example.msgestiondemandedocuments_v1.entity.Demande;
-import com.example.msgestiondemandedocuments_v1.repositories.DemandeRepository;
+import com.example.msdemandev3.entity.Demande;
+import com.example.msdemandev3.repositories.DemandeRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
-//import jakarta.ws.rs.BadRequestException;
-//import jakarta.ws.rs.NotFoundException;
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
+@RequiredArgsConstructor
+
 public class DemandeController {
 
    @Autowired
@@ -46,6 +46,7 @@ public class DemandeController {
     @PreAuthorize("hasRole('ROLE_AGENT')")@GetMapping("/agent" )
     public String getResource() {
         return "hiii i am Agent";}
+    //Get all demandes
    //Get all demandes
    @GetMapping("all")
        public List<Demande> getAllDemandes() {

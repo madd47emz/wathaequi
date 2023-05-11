@@ -1,12 +1,12 @@
-package com.example.msgestiondemandedocuments_v1.model;
+package com.example.testing.model;
 
-import javax.persistence.*;
 
-import com.example.msgestiondemandedocuments_v1.entity.Demande;
+import com.example.testing.entity.Demande;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data

@@ -1,10 +1,10 @@
-package com.example.msgestiondemandedocuments_v1.model;
+package com.example.testing.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Embeddable;
-//import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
