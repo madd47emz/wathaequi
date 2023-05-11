@@ -11,6 +11,12 @@
         <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
         <option value="$PROJECT_DIR$/ms_example_citizen/pom.xml" />
         <option value="$PROJECT_DIR$/registry/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-gestion-demande-document/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_example_citizen/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-demandeV3/pom.xml" />
+        <option value="$PROJECT_DIR$/testing/pom.xml" />
       </list>
     </option>
   </component>
