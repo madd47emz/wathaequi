@@ -78,10 +78,12 @@ public class UserController {
 
         Auth user = new Auth();
         Citizen citizen = new Citizen();
+        citizen.setNin(registerDto.getUsername());
         citizen.setName(registerDto.getName());
         citizen.setGender(registerDto.getGender());
         citizen.setStatus(registerDto.getStatus());
         citizen.setBirthdate(registerDto.getBirthdate());
+        user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
         List<Role> roles = new ArrayList<>();
