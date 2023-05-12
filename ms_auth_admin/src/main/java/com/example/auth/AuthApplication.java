@@ -13,6 +13,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.boot.web.servlet.server.Session;
+package com.example.auth;
+
+import com.example.auth.dao.AuthDao;
+import com.example.auth.dao.CitizenDao;
+import com.example.auth.dao.RoleDao;
+import com.example.auth.entities.*;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,11 +67,11 @@ public class AuthApplication implements CommandLineRunner {
         authDao.save(admin);
         Citizen citizen = new Citizen();
         citizen.setNin("873498732");
-        citizen.setGender("men");
-        citizen.setName("fer");
-        citizen.setStatus("single");
+        citizen.setGender(Gender.FEMALE);
+        citizen.setFirstName( "fer");
+        citizen.setStatus(Status.Single);
         citizenDao.save(citizen);
-        List<Citizen> citizens=  citizenDao.findCitizensByGender("women");
+        List<Citizen> citizens=  citizenDao.findCitizensByGender(Gender.MALE);
         System.out.println(citizens);
     }
 }

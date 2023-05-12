@@ -9,6 +9,7 @@ import com.example.auth.dao.CitizenDao;
 import com.example.auth.dao.RoleDao;
 import com.example.auth.entities.*;
 import com.example.auth.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,11 +40,11 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-     private AuthDao userDao;
+    private AuthDao userDao;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-   private RoleDao roleDao;
+    private RoleDao roleDao;
     @Autowired
     private CitizenDao citizenDao;
     @Autowired
@@ -54,13 +55,13 @@ public class UserController {
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                         loginUser.getUsername(),
+                        loginUser.getUsername(),
                         loginUser.getPassword()
                 )
         );
         if(authentication.isAuthenticated()){
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = jwtTokenUtil.generateToken(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            final String token = jwtTokenUtil.generateToken(authentication);
             return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,token).body(token);
         }
         else{
@@ -79,10 +80,35 @@ public class UserController {
         Auth user = new Auth();
         Citizen citizen = new Citizen();
         citizen.setNin(registerDto.getUsername());
-        citizen.setName(registerDto.getName());
-        citizen.setGender(registerDto.getGender());
-        citizen.setStatus(registerDto.getStatus());
+        citizen.setFirstName(registerDto.getFirstName());
+        citizen.setFamillyName(registerDto.getFullName());
+        citizen.setFullName(registerDto.getFullName());
+        if (registerDto.getGender() == "MALE"){
+            citizen.setGender(Gender.MALE);
+        } else if (registerDto.getGender() == "FEMALE") {
+            citizen.setGender(Gender.FEMALE);
+        }
+       switch (registerDto.getStatus()){
+           case "single":
+               citizen.setStatus(Status.Single);
+               break;
+           case  "married":
+               citizen.setStatus(Status.Married);
+               break;
+           case  "dead":
+               citizen.setStatus(Status.Dead);
+           case  "widow":
+               citizen.setStatus(Status.Widow);
+               break;
+           case "divorcee":
+               citizen.setStatus(Status.Divorcee);
+               break;
+       }
         citizen.setBirthdate(registerDto.getBirthdate());
+        citizen.setCommune(registerDto.getCommune());
+        citizen.setDayra(registerDto.getDayra());
+        citizen.setWilaya(registerDto.getWilaya());
+        citizen.setNationality(registerDto.getNationality());
         user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
@@ -107,18 +133,41 @@ public class UserController {
     @RequestMapping(value="/update/{nin}", method = RequestMethod.PATCH)
     public String update(@RequestBody CitizenDto citizenDto, @PathVariable String nin){
         Citizen citizen=citizenDao.findCitizensByNin(nin);
-        citizen.setName(citizenDto.getName());
-        citizen.setGender(citizenDto.getGender());
+        citizen.setFirstName(citizenDto.getFirstName());
+        citizen.setFullName(citizenDto.getFullName());
+        citizen.setFamillyName(citizenDto.getFamillyName());
+        if (citizenDto.getGender1() == "MALE"){
+            citizen.setGender(Gender.MALE);
+        } else if (citizenDto.getGender1() == "FEMALE") {
+            citizen.setGender(Gender.FEMALE);
+        }
+
+        if(citizenDto.getStatus1()== "single"){
+            citizen.setStatus(Status.Single);
+        }else if (citizenDto.getStatus1()== "Married"){
+            citizen.setStatus(Status.Married);
+        }else if (citizenDto.getStatus1()== "dead"){
+            citizen.setStatus(Status.Dead);
+        }else if (citizenDto.getStatus1()== "widow"){
+            citizen.setStatus(Status.Widow);
+        }else if(citizenDto.getStatus1()=="divorcee"){
+            citizen.setStatus(Status.Divorcee);
+        }
         citizen.setBirthdate(citizenDto.getBirthdate());
-        citizen.setStatus(citizenDto.getStatus());
+        citizen.setCommune(citizenDto.getCommune());
+        citizen.setDayra(citizenDto.getDayra());
+        citizen.setWilaya(citizenDto.getWilaya());
+        citizen.setNationality(citizenDto.getNationality());
         citizenDao.save(citizen);
         return "updated";
-        }
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/delete/{nin}", method = RequestMethod.DELETE)
     public String delete(@PathVariable String nin){
-           Auth auth=userDao.findByUsername(nin);
-           Citizen citizen =citizenDao.findCitizensByNin(nin);
+        Auth auth=userDao.findByUsername(nin);
+        Citizen citizen =citizenDao.findCitizensByNin(nin);
+        citizenDao.delete(citizen);
+        userDao.delete(auth);
         return "deleted";
     }
 }

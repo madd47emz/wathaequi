@@ -17,9 +17,16 @@ public class Citizen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    private String name;
     private String nin;
+    private String nationality;
+    private String fullName;
+    private String famillyName;
+    private  String firstName;
+    private String dayra;
+    private String commune;
+    private String wilaya;
     private Date birthdate;
-    private  String gender;
-    private  String status;
+    private  Gender gender;
+    private Status status;
+
 }

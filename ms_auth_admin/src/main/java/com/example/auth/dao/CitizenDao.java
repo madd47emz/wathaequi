@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 @RepositoryRestResource
 public interface CitizenDao extends JpaRepository<Citizen,Long> {
-    List<Citizen> findCitizensByGender(String gender);
+    List<Citizen> findCitizensByGender(Gender gender );
     Citizen findCitizensByNin(String nin);
 
 
