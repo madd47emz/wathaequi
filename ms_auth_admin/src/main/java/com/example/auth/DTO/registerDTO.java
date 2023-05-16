@@ -16,9 +16,11 @@ public class registerDTO {
     private String status;
     private String gender;
     private String nationality;
-    private String fullName;
-    private String famillyName;
-    private  String firstName;
+    private String fullNameLat;
+    private String fullNameAr;
+    private String father;
+    private String mother;
+    private String partner;
     private String dayra;
     private String commune;
     private String wilaya;

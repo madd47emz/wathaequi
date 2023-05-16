@@ -1,36 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-demandeV3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-demandeV3/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-gestion-document-v2/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-document-v2/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/resources" charset="UTF-8" />
-=======
-    <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/2.7.11/src/main/resources" charset="UTF-8" />
-    <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/2.7.9/src/main/resources" charset="UTF-8" />
-    <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/3.0.5/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Ms-demande/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-demande-doc/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-demande2/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-demandeV3/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/java" charset="UTF-8" />
->>>>>>> 270a9c7639206840cf3341c3f88fd84e08808b69
     <file url="file://$PROJECT_DIR$/registry/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/registry/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testing/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testing/src/main/resources" charset="UTF-8" />
   </component>
 </project>

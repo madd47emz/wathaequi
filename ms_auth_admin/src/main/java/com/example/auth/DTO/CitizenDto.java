@@ -8,15 +8,17 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class CitizenDto extends Citizen {
+public class CitizenDto{
     private String nationality;
-    private String fullName;
-    private String famillyName;
-    private  String firstName;
+    private String fullNameLat;
+    private String fullNameAr;
+    private String father;
+    private String mother;
+    private String partner;
     private String dayra;
     private String commune;
     private String wilaya;
     private Date birthdate;
-    private String gender1;
-    private String status1;
+    private  String gender;
+    private String status;
 }

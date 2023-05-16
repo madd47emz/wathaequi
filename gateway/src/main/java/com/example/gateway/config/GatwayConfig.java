@@ -28,6 +28,9 @@ public class GatwayConfig {
                 .route("demande-service", r -> r.path("/demande/**")
                   .filters(f -> f.rewritePath("/demande/(?<s>.*)","/${s}").filter(filter))
                   .uri("http://localhost:8083/"))
+                .route("ms-gestion-document", r -> r.path("/document/**")
+                        .filters(f -> f.rewritePath("/document/(?<s>.*)","/${s}").filter(filter))
+                        .uri("lb://ms-gestion-document"))
                 .build();
     }
 

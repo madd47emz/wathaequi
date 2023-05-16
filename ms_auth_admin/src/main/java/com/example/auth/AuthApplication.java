@@ -13,7 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.boot.web.servlet.server.Session;
-package com.example.auth;
 
 import com.example.auth.dao.AuthDao;
 import com.example.auth.dao.CitizenDao;
@@ -51,27 +50,6 @@ public class AuthApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        roleDao.save(new Role(1L,"ADMIN"));
-        roleDao.save(new Role(2L,"AGENT"));
-        roleDao.save(new Role(3L,"CITIZEN"));
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleDao.findByName("ADMIN"));
-        roles.add(roleDao.findByName("AGENT"));
-        roles.add(roleDao.findByName("CITIZEN"));
 
-        Auth admin= new Auth();
-        admin.setId(1L);
-        admin.setUsername("admin");
-        admin.setPassword(passwordEncoder.encode("hidaya"));
-        admin.setRoles(roles);
-        authDao.save(admin);
-        Citizen citizen = new Citizen();
-        citizen.setNin("873498732");
-        citizen.setGender(Gender.FEMALE);
-        citizen.setFirstName( "fer");
-        citizen.setStatus(Status.Single);
-        citizenDao.save(citizen);
-        List<Citizen> citizens=  citizenDao.findCitizensByGender(Gender.MALE);
-        System.out.println(citizens);
     }
 }

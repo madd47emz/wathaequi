@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @RequestMapping("/users")
@@ -69,41 +70,33 @@ public class UserController {
         }
 
     }
+    @GetMapping("/profile/{nin}")
+    public Citizen getProfile(@PathVariable("nin") String nin){
+        return citizenDao.findCitizensByNin(nin);
 
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody registerDTO registerDto) {
         if (userDao.existsByUsername(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("nin is taken!", HttpStatus.BAD_REQUEST);
         }
 
         Auth user = new Auth();
         Citizen citizen = new Citizen();
         citizen.setNin(registerDto.getUsername());
-        citizen.setFirstName(registerDto.getFirstName());
-        citizen.setFamillyName(registerDto.getFullName());
-        citizen.setFullName(registerDto.getFullName());
-        if (registerDto.getGender() == "MALE"){
-            citizen.setGender(Gender.MALE);
-        } else if (registerDto.getGender() == "FEMALE") {
-            citizen.setGender(Gender.FEMALE);
-        }
-       switch (registerDto.getStatus()){
-           case "single":
-               citizen.setStatus(Status.Single);
-               break;
-           case  "married":
-               citizen.setStatus(Status.Married);
-               break;
-           case  "dead":
-               citizen.setStatus(Status.Dead);
-           case  "widow":
-               citizen.setStatus(Status.Widow);
-               break;
-           case "divorcee":
-               citizen.setStatus(Status.Divorcee);
-               break;
-       }
+        citizen.setFullNameLat(registerDto.getFullNameLat());
+        citizen.setFullNameAr(registerDto.getFullNameAr());
+        citizen.setFather(registerDto.getFather());
+        citizen.setMother(registerDto.getMother());
+        citizen.setFather(registerDto.getPartner());
+        System.out.println(registerDto.getGender());
+
+
+            citizen.setGender(Gender.valueOf(registerDto.getGender()));
+        citizen.setStatus(Status.valueOf(registerDto.getStatus()));
+
+
         citizen.setBirthdate(registerDto.getBirthdate());
         citizen.setCommune(registerDto.getCommune());
         citizen.setDayra(registerDto.getDayra());
@@ -131,43 +124,36 @@ public class UserController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/update/{nin}", method = RequestMethod.PATCH)
-    public String update(@RequestBody CitizenDto citizenDto, @PathVariable String nin){
+    public String update(@RequestBody CitizenDto payload, @PathVariable String nin){
         Citizen citizen=citizenDao.findCitizensByNin(nin);
-        citizen.setFirstName(citizenDto.getFirstName());
-        citizen.setFullName(citizenDto.getFullName());
-        citizen.setFamillyName(citizenDto.getFamillyName());
-        if (citizenDto.getGender1() == "MALE"){
-            citizen.setGender(Gender.MALE);
-        } else if (citizenDto.getGender1() == "FEMALE") {
-            citizen.setGender(Gender.FEMALE);
-        }
+        if (citizenDao.findCitizensByNin(nin)!=null){
+        citizen.setFullNameAr(payload.getFullNameAr());
+        citizen.setFullNameLat(payload.getFullNameLat());
+        citizen.setFather(payload.getFather());
+        citizen.setMother(payload.getMother());
+        citizen.setPartner(payload.getPartner());
+        citizen.setFather(payload.getFather());
+            citizen.setGender(Gender.valueOf(payload.getGender()));
 
-        if(citizenDto.getStatus1()== "single"){
-            citizen.setStatus(Status.Single);
-        }else if (citizenDto.getStatus1()== "Married"){
-            citizen.setStatus(Status.Married);
-        }else if (citizenDto.getStatus1()== "dead"){
-            citizen.setStatus(Status.Dead);
-        }else if (citizenDto.getStatus1()== "widow"){
-            citizen.setStatus(Status.Widow);
-        }else if(citizenDto.getStatus1()=="divorcee"){
-            citizen.setStatus(Status.Divorcee);
-        }
-        citizen.setBirthdate(citizenDto.getBirthdate());
-        citizen.setCommune(citizenDto.getCommune());
-        citizen.setDayra(citizenDto.getDayra());
-        citizen.setWilaya(citizenDto.getWilaya());
-        citizen.setNationality(citizenDto.getNationality());
+        citizen.setStatus(Status.valueOf(payload.getStatus()));
+        citizen.setBirthdate(payload.getBirthdate());
+        citizen.setCommune(payload.getCommune());
+        citizen.setDayra(payload.getDayra());
+        citizen.setWilaya(payload.getWilaya());
+        citizen.setNationality(payload.getNationality());
         citizenDao.save(citizen);
-        return "updated";
+        return "updated";}
+        return "user not found";
     }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/delete/{nin}", method = RequestMethod.DELETE)
     public String delete(@PathVariable String nin){
+        if(citizenDao.findCitizensByNin(nin)!=null){
         Auth auth=userDao.findByUsername(nin);
         Citizen citizen =citizenDao.findCitizensByNin(nin);
         citizenDao.delete(citizen);
         userDao.delete(auth);
-        return "deleted";
+        return "deleted";}
+        return "user not found";
     }
 }
