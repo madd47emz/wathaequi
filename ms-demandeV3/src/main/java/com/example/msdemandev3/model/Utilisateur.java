@@ -20,7 +20,5 @@ public class Utilisateur {
 
     private String NIN;
 
-    @Embedded
-    private Contact contact;
 
 }

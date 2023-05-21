@@ -3,23 +3,28 @@ package com.example.auth;
 import com.example.auth.dao.AuthDao;
 import com.example.auth.dao.CitizenDao;
 import com.example.auth.dao.RoleDao;
-import com.example.auth.model.Auth;
-import com.example.auth.model.Citizen;
-import com.example.auth.model.Role;
+import com.example.auth.entities.Auth;
+import com.example.auth.entities.Citizen;
+import com.example.auth.entities.Role;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.transaction.Transaction;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableFeignClients
 public class AuthApplication implements CommandLineRunner {
     @Autowired
     private AuthDao authDao;
@@ -34,6 +39,7 @@ public class AuthApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
+
         roleDao.save(new Role(1L,"ADMIN"));
         roleDao.save(new Role(2L,"AGENT"));
         roleDao.save(new Role(3L,"CITIZEN"));
@@ -44,21 +50,17 @@ public class AuthApplication implements CommandLineRunner {
 
         Auth admin= new Auth();
         admin.setId(1L);
-        admin.setPassword(passwordEncoder.encode("hidaya"));
         admin.setUsername("admin");
+        admin.setPassword(passwordEncoder.encode("hidaya"));
         admin.setRoles(roles);
         authDao.save(admin);
         Citizen citizen = new Citizen();
-        citizen.setId(1L);
+        citizen.setNin("873498732");
         citizen.setGender("men");
         citizen.setName("fer");
         citizen.setStatus("single");
-        citizen.setNin("2884793874");
         citizenDao.save(citizen);
-       List<Citizen> citizens=  citizenDao.findCitizensByGender("women");
+        List<Citizen> citizens=  citizenDao.findCitizensByGender("women");
         System.out.println(citizens);
-
-
-
     }
 }

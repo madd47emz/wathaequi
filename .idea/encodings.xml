@@ -14,6 +14,20 @@
     <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/java" charset="UTF-8" />
+=======
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-document-v2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-document-v2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-gestion-document/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms_example_citizen/src/main/resources" charset="UTF-8" />
+>>>>>>> aa85b4487bb507c862e8834140ba35ca88267ca7
     <file url="file://$PROJECT_DIR$/registry/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/registry/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testing/src/main/java" charset="UTF-8" />

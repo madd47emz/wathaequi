@@ -7,14 +7,24 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8888/eureka
-
 spring:
   application:
     name: proxy
-
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders:
+              - content-type
+            allowedMethods:
+              - GET
+              - POST
+              - PATCH
+              - DELETE
       discovery:
         locator:
           enabled: true
+
 

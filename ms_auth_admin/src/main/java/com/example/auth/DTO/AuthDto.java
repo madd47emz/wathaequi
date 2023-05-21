@@ -1,6 +1,6 @@
 package com.example.auth.DTO;
 
-import com.example.auth.model.Auth;
+import com.example.auth.entities.Auth;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

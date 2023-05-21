@@ -1,6 +1,8 @@
 package com.example.msdemandev3.controllers;
 
 import com.example.msdemandev3.entity.Demande;
+import com.example.msdemandev3.model.Citizen;
+import com.example.msdemandev3.proxy.CitizenProx;
 import com.example.msdemandev3.repositories.DemandeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,8 @@ public class DemandeController {
 
    @Autowired
     private DemandeRepository demandeRepository;
+   @Autowired
+   private CitizenProx citizenProx;
 
 
    /** Create demannde by using DemandeRequest     -------not working--------------
@@ -48,12 +52,15 @@ public class DemandeController {
         return "hiii i am Agent";}
     //Get all demandes
    //Get all demandes
+
+    @PreAuthorize("hasRole('ROLE_AGENT')")
    @GetMapping("all")
        public List<Demande> getAllDemandes() {
        return demandeRepository.findAll();
    }
 
    //create a new demande
+
     @PostMapping("demander")
     public ResponseEntity<Demande> createDemande(@RequestBody Demande demande) {
         demande.setDateDeCreation(new Date());
@@ -61,6 +68,14 @@ public class DemandeController {
         Demande savedDemande = demandeRepository.save(demande);
         return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
     }
+
+    @GetMapping("/getUserInfo/{nin}")
+    public Citizen getNin(@PathVariable("nin") String nin, @RequestHeader("Authorization") String authorizationHeader){
+       Citizen citizen=citizenProx.getUserDetails(nin,authorizationHeader);
+       return citizen;
+    }
+
+
 
     //Get all demandes by id
     @GetMapping("/{id}")
@@ -84,7 +99,7 @@ public class DemandeController {
     }
 
     //delete demande by its id
-
+    @PreAuthorize("hasRole('ROLE_AGENT')")
     @DeleteMapping("/{id}")
     public void deleteDemande(@PathVariable Long id) {
         Demande demande = demandeRepository.findById(id)
@@ -94,6 +109,7 @@ public class DemandeController {
     }
 
 // /demandes/{demandeId}/etat   Update the etat of a demande (possible values: missing file , ready, wait)
+@PreAuthorize("hasRole('ROLE_AGENT')")
     @PutMapping("/{demandeId}/etats")
     public Demande updateEtats(@PathVariable Long demandeId, @RequestParam String etats) {
         Demande demande = demandeRepository.findById(demandeId)

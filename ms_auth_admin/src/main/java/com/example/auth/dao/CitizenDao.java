@@ -2,7 +2,7 @@ package com.example.auth.dao;
 
 
 
-import com.example.auth.model.Citizen;
+import com.example.auth.entities.Citizen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
