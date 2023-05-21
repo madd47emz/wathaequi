@@ -16,7 +16,6 @@ public class Paper {
     private String id;
     private String name;
     private String type;
-    private Attachement file;
 
     List<Attachement> folder;
 

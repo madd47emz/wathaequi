@@ -17,9 +17,21 @@ public class Citizen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
-    private String name;
     private String nin;
+    private String nationality;
+    private String fullNameLat;
+    private String fullNameAr;
+    private String father;
+    private String mother;
+    private String partner;
+    private String dayra;
+    private String commune;
+    private String wilaya;
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
-    private  String gender;
-    private  String status;
+    @Enumerated(EnumType.STRING)
+    private  Gender gender;
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 }

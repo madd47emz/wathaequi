@@ -9,6 +9,7 @@ import com.example.auth.dao.CitizenDao;
 import com.example.auth.dao.RoleDao;
 import com.example.auth.entities.*;
 import com.example.auth.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @RequestMapping("/users")
@@ -39,11 +41,11 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-     private AuthDao userDao;
+    private AuthDao userDao;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-   private RoleDao roleDao;
+    private RoleDao roleDao;
     @Autowired
     private CitizenDao citizenDao;
     @Autowired
@@ -54,13 +56,13 @@ public class UserController {
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                         loginUser.getUsername(),
+                        loginUser.getUsername(),
                         loginUser.getPassword()
                 )
         );
         if(authentication.isAuthenticated()){
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String token = jwtTokenUtil.generateToken(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            final String token = jwtTokenUtil.generateToken(authentication);
             return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,token).body(token);
         }
         else{
@@ -68,21 +70,38 @@ public class UserController {
         }
 
     }
+    @GetMapping("/profile/{nin}")
+    public Citizen getProfile(@PathVariable("nin") String nin){
+        return citizenDao.findCitizensByNin(nin);
 
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody registerDTO registerDto) {
         if (userDao.existsByUsername(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("nin is taken!", HttpStatus.BAD_REQUEST);
         }
 
         Auth user = new Auth();
         Citizen citizen = new Citizen();
         citizen.setNin(registerDto.getUsername());
-        citizen.setName(registerDto.getName());
-        citizen.setGender(registerDto.getGender());
-        citizen.setStatus(registerDto.getStatus());
+        citizen.setFullNameLat(registerDto.getFullNameLat());
+        citizen.setFullNameAr(registerDto.getFullNameAr());
+        citizen.setFather(registerDto.getFather());
+        citizen.setMother(registerDto.getMother());
+        citizen.setFather(registerDto.getPartner());
+        System.out.println(registerDto.getGender());
+
+
+            citizen.setGender(Gender.valueOf(registerDto.getGender()));
+        citizen.setStatus(Status.valueOf(registerDto.getStatus()));
+
+
         citizen.setBirthdate(registerDto.getBirthdate());
+        citizen.setCommune(registerDto.getCommune());
+        citizen.setDayra(registerDto.getDayra());
+        citizen.setWilaya(registerDto.getWilaya());
+        citizen.setNationality(registerDto.getNationality());
         user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
@@ -105,20 +124,36 @@ public class UserController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/update/{nin}", method = RequestMethod.PATCH)
-    public String update(@RequestBody CitizenDto citizenDto, @PathVariable String nin){
+    public String update(@RequestBody CitizenDto payload, @PathVariable String nin){
         Citizen citizen=citizenDao.findCitizensByNin(nin);
-        citizen.setName(citizenDto.getName());
-        citizen.setGender(citizenDto.getGender());
-        citizen.setBirthdate(citizenDto.getBirthdate());
-        citizen.setStatus(citizenDto.getStatus());
+        if (citizenDao.findCitizensByNin(nin)!=null){
+        citizen.setFullNameAr(payload.getFullNameAr());
+        citizen.setFullNameLat(payload.getFullNameLat());
+        citizen.setFather(payload.getFather());
+        citizen.setMother(payload.getMother());
+        citizen.setPartner(payload.getPartner());
+        citizen.setFather(payload.getFather());
+            citizen.setGender(Gender.valueOf(payload.getGender()));
+
+        citizen.setStatus(Status.valueOf(payload.getStatus()));
+        citizen.setBirthdate(payload.getBirthdate());
+        citizen.setCommune(payload.getCommune());
+        citizen.setDayra(payload.getDayra());
+        citizen.setWilaya(payload.getWilaya());
+        citizen.setNationality(payload.getNationality());
         citizenDao.save(citizen);
-        return "updated";
-        }
+        return "updated";}
+        return "user not found";
+    }
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/delete/{nin}", method = RequestMethod.DELETE)
     public String delete(@PathVariable String nin){
-           Auth auth=userDao.findByUsername(nin);
-           Citizen citizen =citizenDao.findCitizensByNin(nin);
-        return "deleted";
+        if(citizenDao.findCitizensByNin(nin)!=null){
+        Auth auth=userDao.findByUsername(nin);
+        Citizen citizen =citizenDao.findCitizensByNin(nin);
+        citizenDao.delete(citizen);
+        userDao.delete(auth);
+        return "deleted";}
+        return "user not found";
     }
 }
