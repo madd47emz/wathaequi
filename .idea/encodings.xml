@@ -7,8 +7,10 @@
     <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-gestion-demande-document/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms-gestion-document-v2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ms-participation-citoyen/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ms_auth_admin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/registry/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/testanes/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testing/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/testing/src/main/resources" charset="UTF-8" />
   </component>
