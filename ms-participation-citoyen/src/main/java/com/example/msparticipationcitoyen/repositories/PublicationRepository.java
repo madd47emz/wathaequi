@@ -12,4 +12,7 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
     List<Publication> findPublicationsByCitizenCommune(String commune);
 
     List<Publication> findPublicationsByTypePublication(String typePublication);
+    List<Publication> findPublicationsByTypePublicationAndCitizenIdCitizen(String typePublication, String idCitizen);
+
+
 }
