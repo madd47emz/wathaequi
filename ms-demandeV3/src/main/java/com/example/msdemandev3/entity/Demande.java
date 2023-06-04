@@ -20,7 +20,7 @@ public class Demande {
     @Temporal(TemporalType.TIMESTAMP)
     private Date DateDeCreation;
 
-    private String Etats;
+    private String etats;
 
 
     //@OneToMany(mappedBy = "demande", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -30,7 +30,9 @@ public class Demande {
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "utilisateur_id")
 
-    private Long idUtilisateur;
+    private String idUtilisateur;
+
+    private String idAgent;
 
 
 
