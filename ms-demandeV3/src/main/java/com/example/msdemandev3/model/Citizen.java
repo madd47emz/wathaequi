@@ -9,13 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 
 public class Citizen {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
-    private String name;
+
     private String nin;
+    private String fullNameLat;
 }

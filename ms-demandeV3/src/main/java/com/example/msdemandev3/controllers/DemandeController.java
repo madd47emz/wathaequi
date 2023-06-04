@@ -53,10 +53,12 @@ public class DemandeController {
     //Get all demandes
    //Get all demandes
 
+
+    //////to afficher all verify if it's already asigned
     @PreAuthorize("hasRole('ROLE_AGENT')")
    @GetMapping("all")
        public List<Demande> getAllDemandes() {
-       return demandeRepository.findAll();
+       return demandeRepository.findDemandesByEtats("CREATED");
    }
 
    //create a new demande
@@ -65,6 +67,7 @@ public class DemandeController {
     public ResponseEntity<Demande> createDemande(@RequestBody Demande demande) {
         demande.setDateDeCreation(new Date());
         demande.setEtats("CREATED");
+        demande.setIdAgent("demande non traité");
         Demande savedDemande = demandeRepository.save(demande);
         return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
     }
@@ -124,9 +127,62 @@ public class DemandeController {
         return demandeRepository.save(demande);
     }
 
+
+
     private boolean isValidEtat(String etats) {
         return etats.equals("missing file") || etats.equals("ready") || etats.equals("wait");
     }
+
+
+
+    ////////////////////////////////////////
+    @PreAuthorize("hasRole('ROLE_AGENT')")
+    @PutMapping("/{id}/assign/{nin}")
+    public Demande assignAgent(@PathVariable Long id, @PathVariable String nin) {
+        Demande demande = demandeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Demande not found with id " + id));
+
+        // Check if the agent's NIN is different from the demande's idUtilisateur
+        if (demande.getIdUtilisateur().equals(nin)) {
+            throw new BadRequestException("Agent's NIN cannot be the same as the idUtilisateur of the Demande");
+        }
+
+        demande.setIdAgent(nin);
+        demande.setEtats("wait");
+
+        return demandeRepository.save(demande);
+    }
+
+
+    //////////////////////////////////////////////////////
+    @GetMapping("user/demande/{nin}")
+    public List<Demande> getUserDemande(@PathVariable("nin") String nin,@RequestHeader("Authorization") String authorizationHeader){
+        String bearerToken = authorizationHeader.replace("Bearer ", "");
+
+        // Use the Feign client to get user details with the bearer token
+        Citizen user = citizenProx.getUserDetails(nin, "Bearer " + bearerToken);
+        if(user!=null){
+            return demandeRepository.findDemandeByIdUtilisateur(nin);
+        }
+        return null;
+
+    }
+
+    ////////////////////////////////////////////////////////
+    ///afficher all demande d'un agent
+    @PreAuthorize("hasRole('ROLE_AGENT')")
+    @GetMapping("agent/demande/{nin}")
+    public List<Demande> getAgentDemande(@PathVariable("nin") String nin,@RequestHeader("Authorization") String authorizationHeader){
+        String bearerToken = authorizationHeader.replace("Bearer ", "");
+
+        Citizen user = citizenProx.getUserDetails(nin, "Bearer " + bearerToken);
+        if(user!=null){
+            return demandeRepository.findDemandeByIdAgent(nin);
+        }
+        return null;
+
+    }
+
 
 
 

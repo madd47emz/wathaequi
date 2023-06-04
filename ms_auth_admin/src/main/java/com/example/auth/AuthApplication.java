@@ -32,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transaction;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -51,6 +52,38 @@ public class AuthApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
+        roleDao.save(new Role(1L,"ADMIN"));
+        roleDao.save(new Role(2L,"AGENT"));
+        roleDao.save(new Role(3L,"CITIZEN"));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleDao.findByName("ADMIN"));
+        roles.add(roleDao.findByName("AGENT"));
+        roles.add(roleDao.findByName("CITIZEN"));
+
+       /** Auth admin= new Auth();
+        admin.setId(1L);
+        admin.setPassword(passwordEncoder.encode("hidaya"));
+        admin.setUsername("admin");
+        admin.setRoles(roles);
+        authDao.save(admin);**/
+
+        Citizen citizen = new Citizen();
+        citizen.setId(1L);
+        citizen.setNin("123456789");
+        citizen.setNationality("Algerian");
+        citizen.setFullNameLat("Bouabdelli lamis");
+        citizen.setFullNameAr("بوعبدلي لميس");
+        citizen.setFather("Father Name");
+        citizen.setMother("Mother Name");
+        citizen.setPartner("Partner Name");
+        citizen.setDayra("Dayra Name");
+        citizen.setCommune("Commune Name");
+        citizen.setWilaya("Wilaya Name");
+        citizen.setBirthdate(new Date());
+        citizen.setGender(Gender.FEMALE);
+        citizen.setStatus(Status.valueOf("Single"));
+
+        citizenDao.save(citizen);
 
 
     }
