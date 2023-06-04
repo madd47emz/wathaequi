@@ -6,6 +6,9 @@
 =======
     <mapping directory="$PROJECT_DIR$/ms-gestion-document-v2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/wathaequi" vcs="Git" />
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
   </component>
 </project>

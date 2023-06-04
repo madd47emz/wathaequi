@@ -12,8 +12,11 @@
         <module name="ms-demandeV3" />
         <module name="auth" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <module name="testing" />
         <module name="ms-participation-citoyen" />
+=======
+>>>>>>> main
 =======
 >>>>>>> main
         <module name="ms-gestion-document-v2" />
@@ -23,7 +26,11 @@
     <bytecodeTargetLevel>
       <module name="citizens" target="17" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module name="testanes" target="17" />
+=======
+      <module name="testing" target="17" />
+>>>>>>> main
 =======
       <module name="testing" target="17" />
 >>>>>>> main
