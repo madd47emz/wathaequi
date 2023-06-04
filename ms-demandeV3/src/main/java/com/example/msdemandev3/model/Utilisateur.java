@@ -18,9 +18,7 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String NIN;
+    private String nin;
 
-    @Embedded
-    private Contact contact;
 
 }

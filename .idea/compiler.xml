@@ -11,15 +11,22 @@
         <module name="registry" />
         <module name="ms-demandeV3" />
         <module name="auth" />
+<<<<<<< HEAD
         <module name="testing" />
         <module name="ms-participation-citoyen" />
+=======
+>>>>>>> main
         <module name="ms-gestion-document-v2" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="citizens" target="17" />
+<<<<<<< HEAD
       <module name="testanes" target="17" />
+=======
+      <module name="testing" target="17" />
+>>>>>>> main
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

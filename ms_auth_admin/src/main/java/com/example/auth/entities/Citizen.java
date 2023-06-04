@@ -29,9 +29,7 @@ public class Citizen {
     private String wilaya;
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Enumerated(EnumType.STRING)
     private  Gender gender;
-    @Enumerated(EnumType.STRING)
     private Status status;
 
 }
