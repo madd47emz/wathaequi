@@ -11,4 +11,5 @@ import java.util.List;
 public interface PaperRepo extends MongoRepository<Paper, String> {
     List<Paper> findPapersByUserId(String userId);
     Boolean existsPaperByUserId(String userId);
+    Boolean existsPaperByUserIdAndNameIgnoreCase(String userId, String name);
 }
