@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Data
 public class CitizenDto{
+    private  String nin;
     private String nationality;
     private String fullNameLat;
     private String fullNameAr;

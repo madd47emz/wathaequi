@@ -1,9 +1,11 @@
 package com.example.auth.controller;
 
 
+import com.example.auth.DTO.AgentDto;
 import com.example.auth.DTO.CitizenDto;
 import com.example.auth.DTO.registerDTO;
 import com.example.auth.config.TokenProvider;
+import com.example.auth.dao.AgentDao;
 import com.example.auth.dao.AuthDao;
 import com.example.auth.dao.CitizenDao;
 import com.example.auth.dao.RoleDao;
@@ -50,6 +52,8 @@ public class UserController {
     private CitizenDao citizenDao;
     @Autowired
     TokenProvider tokenProvider;
+    @Autowired
+    AgentDao agentDao;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody LoginUser loginUser) throws AuthenticationException {
@@ -76,6 +80,24 @@ public class UserController {
 
     }
     @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/registerAgent" , method = RequestMethod.POST)
+    public  ResponseEntity<String> registerAgent(@RequestBody AgentDto agentDTO ){
+        if (!citizenDao.existsByNin(agentDTO.getNin())) {
+            return new ResponseEntity<>("nin is not found !", HttpStatus.BAD_REQUEST);
+        }
+        if (agentDao.existsByNin(agentDTO.getNin())) {
+            return new ResponseEntity<>("nin is taken!", HttpStatus.BAD_REQUEST);
+        }
+        userDao.findAuthByUsername(agentDTO.getNin()).getRoles().forEach(role -> {
+            if(role.getName().equals("AGENT")){
+                Agent agent =new Agent(null,agentDTO.getNin(),citizenDao.findCitizenByNin(agentDTO.getNin()).getFullNameLat(),agentDTO.getCommune());
+                agentDao.save(agent);
+            }
+        });
+        return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> register(@RequestBody registerDTO registerDto) {
         if (userDao.existsByUsername(registerDto.getUsername())) {
@@ -91,12 +113,8 @@ public class UserController {
         citizen.setMother(registerDto.getMother());
         citizen.setFather(registerDto.getPartner());
         System.out.println(registerDto.getGender());
-
-
-            citizen.setGender(Gender.valueOf(registerDto.getGender()));
+        citizen.setGender(Gender.valueOf(registerDto.getGender()));
         citizen.setStatus(Status.valueOf(registerDto.getStatus()));
-
-
         citizen.setBirthdate(registerDto.getBirthdate());
         citizen.setCommune(registerDto.getCommune());
         citizen.setDayra(registerDto.getDayra());
@@ -115,7 +133,7 @@ public class UserController {
         if (registerDto.getAgent() == true) {
             roles.add(roleDao.findByName("AGENT"));
         }
-        user .setRoles(roles);
+        user.setRoles(roles);
         citizenDao.save(citizen);
         userDao.save(user);
 

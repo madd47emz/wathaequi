@@ -60,16 +60,16 @@ public class AuthApplication implements CommandLineRunner {
         roles.add(roleDao.findByName("AGENT"));
         roles.add(roleDao.findByName("CITIZEN"));
 
-       /** Auth admin= new Auth();
+        Auth admin= new Auth();
         admin.setId(1L);
         admin.setPassword(passwordEncoder.encode("hidaya"));
         admin.setUsername("admin");
         admin.setRoles(roles);
-        authDao.save(admin);**/
+        authDao.save(admin);
 
         Citizen citizen = new Citizen();
         citizen.setId(1L);
-        citizen.setNin("123456789");
+        citizen.setNin("admin");
         citizen.setNationality("Algerian");
         citizen.setFullNameLat("Bouabdelli lamis");
         citizen.setFullNameAr("بوعبدلي لميس");
