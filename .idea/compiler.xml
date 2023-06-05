@@ -2,7 +2,31 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Ms-Gestion-DemandeDocuments_V1" />
+        <module name="registry" />
+        <module name="ms-demandeV3" />
+        <module name="auth" />
+        <module name="ms-participation-citoyen" />
+        <module name="ms-gestion-document-v2" />
+        <module name="gateway" />
+      </profile>
     </annotationProcessing>
+<<<<<<< HEAD
+=======
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Ms-Gestion-DemandeDocuments_V1" options="-parameters" />
+      <module name="auth" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="ms-gestion-document-v2" options="-parameters" />
+      <module name="ms-participation-citoyen" options="-parameters" />
+      <module name="registry" options="-parameters" />
+    </option>
+>>>>>>> b11ee6e1e714b96c1d83c4653ff28f5a8f475500
   </component>
 </project>
