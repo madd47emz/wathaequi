@@ -14,6 +14,4 @@ public interface CitizenProx {
     @GetMapping("/citizens/search/findCitizensByNin")
     Citizen getUserDetails(@RequestParam("nin") String nin,
                            @RequestHeader("Authorization") String authorizationHeader);
-
-
 }

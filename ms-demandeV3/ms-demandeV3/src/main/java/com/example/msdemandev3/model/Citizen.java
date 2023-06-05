@@ -15,7 +15,4 @@ public class Citizen {
 
     private String nin;
     private String fullNameLat;
-
-    private String commune;
-    private String wilaya;
 }

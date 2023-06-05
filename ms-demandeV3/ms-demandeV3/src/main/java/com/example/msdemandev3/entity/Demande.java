@@ -1,10 +1,8 @@
 package com.example.msdemandev3.entity;
 
-import com.example.msdemandev3.model.Citizen;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 
 
@@ -17,7 +15,7 @@ public class Demande {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String DemandeNum;
+    private String Nom;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date DateDeCreation;
@@ -32,15 +30,9 @@ public class Demande {
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "utilisateur_id")
 
-    private String commune;
-
-    private String wilaya;
     private String idUtilisateur;
 
     private String idAgent;
-
-    @Transient
-    private Collection<Citizen> citizens;
 
 
 

@@ -13,6 +13,4 @@ public interface DemandeRepository extends JpaRepository<Demande,Long> {
 
     List<Demande> findDemandesByEtats(String Etats);
 
-    List<Demande> findDemandesByWilayaAndCommune(String wilaya,String commune );
-
 }

@@ -23,74 +23,58 @@ import java.util.List;
 
 public class DemandeController {
 
-   @Autowired
+    @Autowired
     private DemandeRepository demandeRepository;
-   @Autowired
-   private CitizenProx citizenProx;
+    @Autowired
+    private CitizenProx citizenProx;
 
 
-   /** Create demannde by using DemandeRequest     -------not working--------------
-    * @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String demander(@RequestBody DemandeRequest demandeRequest){
-        serviceDemande.demander(demandeRequest);
-        return "Demande effectué avec success";
-    }
+    /** Create demannde by using DemandeRequest     -------not working--------------
+     * @PostMapping
+     @ResponseStatus(HttpStatus.CREATED)
+     public String demander(@RequestBody DemandeRequest demandeRequest){
+     serviceDemande.demander(demandeRequest);
+     return "Demande effectué avec success";
+     }
+     @PostMapping("/test")
+     public Demande inserer(@RequestBody Demande demande) {
+     return demandeRepository.save(demande);
+     }
+     }**/
 
-    @PostMapping("/test")
-    public Demande inserer(@RequestBody Demande demande) {
-    return demandeRepository.save(demande);
-    }
-    }**/
 
-
-   @GetMapping("/headerr")
-   public String getrce() {
-       return "hiii i am Citizen";}
+    @GetMapping("/headerr")
+    public String getrce() {
+        return "hiii i am Citizen";}
     @PreAuthorize("hasRole('ROLE_AGENT')")@GetMapping("/agent" )
     public String getResource() {
         return "hiii i am Agent";}
     //Get all demandes
-   //Get all demandes
+    //Get all demandes
 
 
     //////to afficher all verify if it's already asigned
-    /**@PreAuthorize("hasRole('ROLE_AGENT')")
-   @GetMapping("all")
-       public List<Demande> getAllDemandes() {
-       return demandeRepository.findDemandesByEtats("CREATED");
-   }
-**/
-   //create a new demande
+    @PreAuthorize("hasRole('ROLE_AGENT')")
+    @GetMapping("all")
+    public List<Demande> getAllDemandes() {
+        return demandeRepository.findDemandesByEtats("CREATED");
+    }
+
+    //create a new demande
 
     @PostMapping("demander")
-    public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, @RequestHeader("Authorization") String authorizationHeader) {
-        String bearerToken = authorizationHeader.replace("Bearer ", "");
-        Citizen user = citizenProx.getUserDetails(demande.getIdUtilisateur(), "Bearer " + bearerToken);
-        if (user != null) {
-
-            demande.setDateDeCreation(new Date());
-            demande.setWilaya(user.getWilaya());
-            demande.setCommune(user.getCommune());
-            demande.setEtats("CREATED");
-            Demande savedDemande = demandeRepository.save(demande);
-            return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>(new Demande(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Demande> createDemande(@RequestBody Demande demande) {
+        demande.setDateDeCreation(new Date());
+        demande.setEtats("CREATED");
+        demande.setIdAgent("demande non traité");
+        Demande savedDemande = demandeRepository.save(demande);
+        return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
     }
 
     @GetMapping("/getUserInfo/{nin}")
     public Citizen getNin(@PathVariable("nin") String nin, @RequestHeader("Authorization") String authorizationHeader){
-       Citizen citizen=citizenProx.getUserDetails(nin,authorizationHeader);
-       return citizen;
-    }
-
-    /////////////////////////////////////////////////////////////
-    @GetMapping("/getDemandeParCommune/{wilaya}/{commune}")
-    public List<Demande> getDemande(@PathVariable("wilaya") String wilaya,@PathVariable("commune") String commune){
-
-       return demandeRepository.findDemandesByWilayaAndCommune(wilaya, commune);
+        Citizen citizen=citizenProx.getUserDetails(nin,authorizationHeader);
+        return citizen;
     }
 
 
@@ -109,7 +93,6 @@ public class DemandeController {
         Demande demande = demandeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Demande not found with id " + id));
 
-        demande.setDemandeNum(updatedDemande.getDemandeNum());
         demande.setDateDeCreation(updatedDemande.getDateDeCreation());
         demande.setEtats(updatedDemande.getEtats());
 
@@ -126,8 +109,8 @@ public class DemandeController {
         demandeRepository.delete(demande);
     }
 
-// /demandes/{demandeId}/etat   Update the etat of a demande (possible values: missing file , ready, wait)
-@PreAuthorize("hasRole('ROLE_AGENT')")
+    // /demandes/{demandeId}/etat   Update the etat of a demande (possible values: missing file , ready, wait)
+    @PreAuthorize("hasRole('ROLE_AGENT')")
     @PutMapping("/{demandeId}/etats")
     public Demande updateEtats(@PathVariable Long demandeId, @RequestParam String etats) {
         Demande demande = demandeRepository.findById(demandeId)
