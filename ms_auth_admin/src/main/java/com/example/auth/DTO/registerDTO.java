@@ -9,9 +9,6 @@ import java.util.Date;
 public class registerDTO {
     private String username;
     private String password;
-    private Boolean admin;
-    private Boolean user;
-    private Boolean agent;
     private Date birthdate;
     private String status;
     private String gender;
@@ -19,6 +16,9 @@ public class registerDTO {
     private String fullNameLat;
     private String fullNameAr;
     private String father;
+    private String dayraNaissance;
+    private String communeNaissance;
+    private String wilayaNaissance;
     private String mother;
     private String partner;
     private String dayra;

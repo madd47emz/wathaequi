@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Data
 public class CitizenDto{
+    private  String nin;
     private String nationality;
     private String fullNameLat;
     private String fullNameAr;
@@ -18,6 +19,9 @@ public class CitizenDto{
     private String dayra;
     private String commune;
     private String wilaya;
+    private String dayraNaissance;
+    private String communeNaissance;
+    private String wilayaNaissance;
     private Date birthdate;
     private  String gender;
     private String status;
