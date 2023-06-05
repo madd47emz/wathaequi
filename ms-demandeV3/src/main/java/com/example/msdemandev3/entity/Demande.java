@@ -30,6 +30,8 @@ public class Demande {
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "utilisateur_id")
 
+
+
     private String idUtilisateur;
 
     private String idAgent;
