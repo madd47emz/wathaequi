@@ -8,4 +8,6 @@ import lombok.Data;
 public class AgentDto{
     private String nin;
     private String commune;
+    private String wilaya;
+
 }

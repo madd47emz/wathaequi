@@ -12,5 +12,8 @@ import java.util.List;
 @RepositoryRestResource
 public interface AgentDao extends JpaRepository<Agent,Long> {
     Boolean existsByNin(String nin);
+    List<Agent> findAgentsByWilayaAndCommune(String wilaya,String commune);
+    Agent findAgentByNin(String nin);
+
 
 }

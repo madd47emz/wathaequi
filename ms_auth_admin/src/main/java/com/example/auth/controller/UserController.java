@@ -83,18 +83,20 @@ public class UserController {
     @RequestMapping(value = "/registerAgent" , method = RequestMethod.POST)
     public  ResponseEntity<String> registerAgent(@RequestBody AgentDto agentDTO ){
         if (!citizenDao.existsByNin(agentDTO.getNin())) {
+
             return new ResponseEntity<>("nin is not found !", HttpStatus.BAD_REQUEST);
         }
         if (agentDao.existsByNin(agentDTO.getNin())) {
             return new ResponseEntity<>("nin is taken!", HttpStatus.BAD_REQUEST);
         }
-        userDao.findAuthByUsername(agentDTO.getNin()).getRoles().forEach(role -> {
-            if(role.getName().equals("AGENT")){
-                Agent agent =new Agent(null,agentDTO.getNin(),citizenDao.findCitizenByNin(agentDTO.getNin()).getFullNameLat(),agentDTO.getCommune());
-                agentDao.save(agent);
-            }
-        });
-        return new ResponseEntity<>("User registered success!", HttpStatus.OK);
+
+        Agent agent =new Agent(null,agentDTO.getNin(),citizenDao.findCitizenByNin(agentDTO.getNin()).getFullNameLat(),agentDTO.getCommune(),agentDTO.getWilaya());
+        Auth auth = userDao.findAuthByUsername(agentDTO.getNin());
+        auth.getRoles().add(new Role(2L,"AGENT"));
+        userDao.save(auth);
+        agentDao.save(agent);
+
+        return new ResponseEntity<>("Agent registered success!", HttpStatus.OK);
 
     }
     @PreAuthorize("hasRole('ADMIN')")
@@ -119,20 +121,15 @@ public class UserController {
         citizen.setCommune(registerDto.getCommune());
         citizen.setDayra(registerDto.getDayra());
         citizen.setWilaya(registerDto.getWilaya());
+        citizen.setCommuneNaissance(registerDto.getCommuneNaissance());
+        citizen.setDayraNaissance(registerDto.getDayraNaissance());
+        citizen.setWilayaNaissance(registerDto.getWilayaNaissance());
         citizen.setNationality(registerDto.getNationality());
         user.setUsername(registerDto.getUsername());
         user.setPassword(passwordEncoder.encode((registerDto.getPassword())));
 
         List<Role> roles = new ArrayList<>();
-        if (registerDto.getAdmin() == true) {
-            roles.add(roleDao.findByName("ADMIN"));
-        }
-        if (registerDto.getUser() == true) {
-            roles.add(roleDao.findByName("CITIZEN"));
-        }
-        if (registerDto.getAgent() == true) {
-            roles.add(roleDao.findByName("AGENT"));
-        }
+        roles.add(roleDao.findByName("CITIZEN"));
         user.setRoles(roles);
         citizenDao.save(citizen);
         userDao.save(user);
@@ -144,21 +141,69 @@ public class UserController {
     @RequestMapping(value="/update/{nin}", method = RequestMethod.PATCH)
     public String update(@RequestBody CitizenDto payload, @PathVariable String nin){
         Citizen citizen=citizenDao.findCitizensByNin(nin);
+        System.out.println(citizen);
         if (citizenDao.findCitizensByNin(nin)!=null){
-        citizen.setFullNameAr(payload.getFullNameAr());
-        citizen.setFullNameLat(payload.getFullNameLat());
-        citizen.setFather(payload.getFather());
-        citizen.setMother(payload.getMother());
-        citizen.setPartner(payload.getPartner());
-        citizen.setFather(payload.getFather());
-            citizen.setGender(Gender.valueOf(payload.getGender()));
+            if(payload.getFullNameAr().equals("")){
+                citizen.setFullNameAr(citizen.getFullNameAr());
+            }
+            else {
+                citizen.setFullNameAr(payload.getFullNameAr());
+            }
+            if(payload.getFullNameLat().equals("")){
+                citizen.setFullNameLat(citizen.getFullNameLat());
+            }
+            else {
+                citizen.setFullNameLat(payload.getFullNameLat());
+            }
+            if(payload.getFather().equals("")){
+                citizen.setFather(citizen.getFather());
+            }
+            else {
+                citizen.setFather(payload.getFather());
+            }
+            if(payload.getMother().equals("")){
+                citizen.setMother(citizen.getMother());
+            }
+            else {
+                citizen.setMother(payload.getMother());
+            }
+            if(payload.getPartner().equals("")){
+                citizen.setPartner(citizen.getPartner());
+            }
+            else {
+                citizen.setPartner(payload.getPartner());
+            }
+            if(payload.getBirthdate().toString().equals("")){
+                citizen.setBirthdate(citizen.getBirthdate());
+            }
+            else {
+                citizen.setBirthdate(payload.getBirthdate());
+            }
+            if(payload.getCommune().equals("")){
+                citizen.setCommune(citizen.getCommune());
+            }
+            else {
+                citizen.setCommune(payload.getCommune());
+            }
+            if(payload.getDayra().equals("")){
+                citizen.setDayra(citizen.getDayra());
+            }
+            else {
+                citizen.setDayra(payload.getDayra());
+            }
+            if(payload.getWilaya().equals("")){
+                citizen.setWilaya(citizen.getWilaya());
+            }
+            else {
+                citizen.setWilaya(payload.getWilaya());
+            }
+            if(payload.getNationality().equals("")){
+                citizen.setNationality(citizen.getNationality());
+            }
+            else {
+                citizen.setNationality(payload.getNationality());
+            }
 
-        citizen.setStatus(Status.valueOf(payload.getStatus()));
-        citizen.setBirthdate(payload.getBirthdate());
-        citizen.setCommune(payload.getCommune());
-        citizen.setDayra(payload.getDayra());
-        citizen.setWilaya(payload.getWilaya());
-        citizen.setNationality(payload.getNationality());
         citizenDao.save(citizen);
         return "updated";}
         return "user not found";
@@ -168,10 +213,58 @@ public class UserController {
     public String delete(@PathVariable String nin){
         if(citizenDao.findCitizensByNin(nin)!=null){
         Auth auth=userDao.findByUsername(nin);
+        Agent agent =agentDao.findAgentByNin(nin);
+        if(agent != null){
+            agentDao.delete(agent);
+        }
         Citizen citizen =citizenDao.findCitizensByNin(nin);
         citizenDao.delete(citizen);
         userDao.delete(auth);
         return "deleted";}
         return "user not found";
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value="/deleteAgent/{nin}", method = RequestMethod.DELETE)
+    public String deleteAgent(@PathVariable String nin) {
+
+
+        Agent agent = agentDao.findAgentByNin(nin);
+        Auth auth =userDao.findAuthByUsername(nin);
+
+
+        if (agent != null) {
+
+
+            agentDao.delete(agent);
+            auth.getRoles().remove(new Role(2L, "AGENT"));
+            System.out.println(auth.getRoles());
+            return "deleted";
+        }else {
+            return "agent not found";
+        }
+
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value="/updateAgent/{nin}", method = RequestMethod.PATCH)
+    public String updateAgent(@RequestBody AgentDto payload, @PathVariable String nin){
+
+        Agent agent= agentDao.findAgentByNin(nin);
+        if (agent !=null){
+            agent.setCommune(payload.getCommune());
+            if (payload.getWilaya().equals(agent.getWilaya())){
+                agent.setWilaya(agent.getWilaya());
+            }
+            agent.setWilaya(payload.getWilaya());
+            agent.setNin(agent.getNin());
+            agent.setFullName(agent.getFullName());
+            agent.setId(agent.getId());
+            agentDao.save(agent);
+            return "updated";
+        }
+
+        return "user not found";
+    }
+
+
 }

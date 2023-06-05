@@ -20,5 +20,6 @@ public class Agent {
     private String nin;
     private String fullName;
     private String commune;
+    private String wilaya;
 
 }

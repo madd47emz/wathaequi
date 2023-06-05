@@ -27,11 +27,12 @@ public class Citizen {
     private String dayra;
     private String commune;
     private String wilaya;
+    private String dayraNaissance;
+    private String communeNaissance;
+    private String wilayaNaissance;
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @Enumerated(EnumType.STRING)
     private  Gender gender;
-    @Enumerated(EnumType.STRING)
     private Status status;
 
 }

@@ -1,8 +1,6 @@
 package com.example.auth;
 
-import com.example.auth.dao.AuthDao;
-import com.example.auth.dao.CitizenDao;
-import com.example.auth.dao.RoleDao;
+import com.example.auth.dao.*;
 import com.example.auth.entities.Auth;
 import com.example.auth.entities.Citizen;
 import com.example.auth.entities.Role;
@@ -47,6 +45,8 @@ public class AuthApplication implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
     @Autowired
     CitizenDao citizenDao;
+    @Autowired
+    AgentDao agentDao;
     public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }
@@ -84,6 +84,14 @@ public class AuthApplication implements CommandLineRunner {
         citizen.setStatus(Status.valueOf("Single"));
 
         citizenDao.save(citizen);
+       /*Agent agent = new Agent();
+        agent.setId(1L);
+        agent.setNin("admin");
+        agent.setFullName("Bouabdelli lamis");
+        agent.setCommune("Sidi Bel Abess");
+        agentDao.save(agent);*/
+
+
 
 
     }
