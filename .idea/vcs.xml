@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+<<<<<<< HEAD
     <mapping directory="" vcs="Git" />
+=======
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/ms-gestion-document-v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/wathaequi" vcs="Git" />
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
+=======
+>>>>>>> b11ee6e1e714b96c1d83c4653ff28f5a8f475500
+>>>>>>> origin/main
   </component>
 </project>

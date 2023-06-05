@@ -13,6 +13,9 @@ import java.util.List;
 public interface CitizenDao extends JpaRepository<Citizen,Long> {
     List<Citizen> findCitizensByGender(Gender gender );
     Citizen findCitizensByNin(@Param("nin")String nin);
+    Citizen findCitizenByNin(String nin);
+    Boolean existsByNin(String nin);
+
 
     Citizen findCitizensByCommune(@Param("commune") String commune);
 
