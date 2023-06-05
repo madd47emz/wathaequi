@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,42 +10,20 @@
         <module name="registry" />
         <module name="ms-demandeV3" />
         <module name="auth" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <module name="testing" />
         <module name="ms-participation-citoyen" />
-=======
->>>>>>> main
-=======
->>>>>>> main
         <module name="ms-gestion-document-v2" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="citizens" target="17" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <module name="testanes" target="17" />
-=======
-      <module name="testing" target="17" />
->>>>>>> main
-=======
-      <module name="testing" target="17" />
->>>>>>> main
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Ms-Gestion-DemandeDocuments_V1" options="-parameters" />
       <module name="auth" options="-parameters" />
       <module name="gateway" options="-parameters" />
-      <module name="ms-demandeV3" options="-parameters" />
       <module name="ms-gestion-document-v2" options="-parameters" />
       <module name="ms-participation-citoyen" options="-parameters" />
       <module name="registry" options="-parameters" />
-      <module name="testanes" options="-parameters" />
-      <module name="testing" options="-parameters" />
     </option>
   </component>
 </project>
