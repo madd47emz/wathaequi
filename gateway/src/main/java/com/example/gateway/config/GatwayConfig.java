@@ -34,6 +34,10 @@ public class GatwayConfig {
                 .route("ms-gestion-document", r -> r.path("/document/**")
                         .filters(f -> f.rewritePath("/document/(?<s>.*)","/${s}").filter(filter))
                         .uri("lb://ms-gestion-document"))
+                .route("ms-participation-citoyen", r -> r.path("/forum/**")
+                        .filters(f -> f.rewritePath("/forum/(?<s>.*)","/${s}").filter(filter))
+                        .uri("http://localhost:4201/"))
+
                 .build();
     }
 

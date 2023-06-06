@@ -7,11 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Ms-Gestion-DemandeDocuments_V1" />
         <module name="registry" />
         <module name="ms-demandeV3" />
         <module name="auth" />
-        <module name="testing" />
         <module name="ms-participation-citoyen" />
         <module name="ms-gestion-document-v2" />
         <module name="gateway" />
@@ -19,7 +17,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="citizens" target="17" />
+      <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
       <module name="testanes" target="17" />
+      <module name="testing" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

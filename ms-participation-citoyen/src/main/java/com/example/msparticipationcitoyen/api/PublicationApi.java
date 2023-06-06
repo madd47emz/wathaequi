@@ -1,10 +1,9 @@
 package com.example.msparticipationcitoyen.api;
 
-import com.example.msparticipationcitoyen.entities.Citizen;
 import com.example.msparticipationcitoyen.entities.Publication;
 import com.example.msparticipationcitoyen.entities.Reply;
-import com.example.msparticipationcitoyen.proxy.CitizenProx;
-import com.example.msparticipationcitoyen.repositories.CitizenRepository;
+import com.example.msparticipationcitoyen.entities.TypePublication;
+import com.example.msparticipationcitoyen.model.ReplyRequest;
 import com.example.msparticipationcitoyen.repositories.PublicationRepository;
 import com.example.msparticipationcitoyen.repositories.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("ms-participation-citoyen")
 public class PublicationApi {
-    @Autowired
-    CitizenRepository citizenRepository;
 
-    @Autowired
-    CitizenProx citizenProxy;
+
 
     @Autowired
     ReplyRepository replyRepository;
@@ -29,54 +25,47 @@ public class PublicationApi {
     @Autowired
     PublicationRepository publicationRepository;
 
-    @GetMapping("/citizen/{id}")
-//GET http://localhost:8081/api/citizen/1
-    Citizen getCitizenWithPublication(@PathVariable("id") Long id) {
 
-        Citizen citizen = citizenRepository.findById(id).get();
 
-        citizen.setCitizenAuth(citizenProxy.getCitizenAuth(id, "toparticipation_citoyen"));
-
-        return citizen;
-    }
-
-//Afficher publications par citoyen
+    //Afficher publications par citoyen
     @GetMapping("citizen/{idC}/publications")
-    public List<Publication> findPublicationsByCitizenIdCitizen(@PathVariable(value = "idC") Long idC) {
-
-
-        return publicationRepository.findPublicationsByCitizenIdCitizen(idC);
-
+    public List<Publication> findPublicationsOfCitizen(@PathVariable(value = "idC") String idC) {
+            return publicationRepository.findPublicationsByIdCitizen(idC);
 
     }
-
 
 
     //Afficher tous les avis
     @GetMapping("/avis")
     public List<Publication> findAvis() {
-        return publicationRepository.findPublicationsByTypePublication("Avis");
+//        return publicationRepository.findPublicationsByTypePublication(TypePublication.Avis);
+        return publicationRepository.findPublicationsByTypePublication(TypePublication.Avis);
     }
 
 
     //Afficher tous les signalement par citoyen
-    @GetMapping("citizen/{idC}/signalement")
-    public List<Publication> findSignalementCitizen(@PathVariable(value = "idC") String idC,@RequestHeader("Authorization") String authorizationHeader) {
 
-        String bearerToken = authorizationHeader.replace("Bearer ", "");
-        // Use the Feign client to get user details with the bearer token
-        Citizen user = citizenProxy.getUserDetails(idC, "Bearer " + bearerToken);
-        if(citizenProxy.getUserDetails(idC, "Bearer " + bearerToken)!=null){
-        return publicationRepository.findPublicationsByTypePublicationAndCitizenIdCitizen("Signalement", idC);
+    @GetMapping("citizen/{idC}/signalements")
+    public List<Publication> findSignalementCitizen(@PathVariable(value = "idC") String idC) {
+
+        return publicationRepository.findPublicationsByTypePublicationAndIdCitizen(TypePublication.Signalement, idC);
+    };
+
+
+
+    //Afficher publications par commune and wilaya
+    @GetMapping("/publications/{wilaya}/{commune}")
+
+    public List<Publication> findPublicationsByCommune(@PathVariable(value = "commune") String commune,@PathVariable(value = "wilaya") String wilaya) {
+        return publicationRepository.findPublicationsByCommuneAndWilaya(commune,wilaya);
     }
-        return null}
 
 
+    //Afficher signalement par commune et wilaya
+    @GetMapping("/signalement/{wilaya}/{commune}")
 
-    //Afficher publications par commune
-    @GetMapping("/publications/{commune}")
-    public List<Publication> findPublicationsByCommune(@PathVariable(value = "commune") String commune) {
-        return publicationRepository.findPublicationsByCitizenCommune(commune);
+    public List<Publication> signalementsParCommuneWilaya(@PathVariable(value = "commune") String commune,@PathVariable(value = "wilaya") String wilaya) {
+        return publicationRepository.findPublicationsByTypePublicationAndCommuneAndWilaya(TypePublication.Signalement,commune,wilaya);
     }
 
 
@@ -86,21 +75,37 @@ public class PublicationApi {
     //Afficher reponces par publication
     @GetMapping("publications/{idP}/reponces")
     public List<Reply> findReplies(@PathVariable(value = "idP") Long idP) {
-        return replyRepository.findRepliesByPublicationIdPublication(idP);
+        Optional<Publication> existingPublication = publicationRepository.findById(idP);
+        if (existingPublication.isPresent()) {
+            return replyRepository.findRepliesByPublicationIdPublication(idP);
+        } else {
+            return null;
+        }
     }
 
     // Creer une publication
+
     @PostMapping("/publications")
-    public Publication createPublication(@RequestBody publication publication) {
+    public Publication createPublication(@RequestBody Publication publication) {
+
+        if (publication.getTypePublication() == null ||
+                publication.getContent() == null ||
+                publication.getDatePublication() == null ||
+                publication.getIdCitizen() == null || publication.getWilaya() == null ||
+                publication.getCommune() == null || publication.getFullNameCitizen() == null) {
+            throw new IllegalArgumentException("Required fields are missing.");
+        }
+
         return publicationRepository.save(publication);
     }
 
     // Update a publication
     @PutMapping("/publications/{id}")
     public ResponseEntity<Publication> updatePublication(@PathVariable("id") Long id, @RequestBody Publication publication) {
-        Optional<Publication> existingPublication = publicationRepository.findById(id);
-        if (existingPublication.isPresent()) {
-            publication.setIdPublication(id);
+        Publication existingPublication = publicationRepository.findById(id).get();
+        if (existingPublication != null) {
+
+            existingPublication.setContent(publication.getContent());
             Publication updatedPublication = publicationRepository.save(publication);
             return ResponseEntity.ok(updatedPublication);
         } else {
@@ -109,11 +114,11 @@ public class PublicationApi {
     }
     // Delete a publication
     @DeleteMapping("/publications/{id}")
-    public ResponseEntity<Void> deletePublication(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deletePublication(@PathVariable("id") Long id) {
         Optional<Publication> publication = publicationRepository.findById(id);
         if (publication.isPresent()) {
-            publicationRepository.delete(publication.get());
-            return ResponseEntity.noContent().build();
+            publicationRepository.deleteById(id);
+            return ResponseEntity.ok("Publication deleted");
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -121,10 +126,20 @@ public class PublicationApi {
 
     // Create a new reply for a publication
     @PostMapping("/publications/{publicationId}/replies")
-    public ResponseEntity<Reply> createReply(@PathVariable("publicationId") Long publicationId, @RequestBody Reply reply) {
+    public ResponseEntity<Reply> createReply(@PathVariable("publicationId") Long publicationId, @RequestBody ReplyRequest replyRequest) {
         Optional<Publication> publication = publicationRepository.findById(publicationId);
+
         if (publication.isPresent()) {
-            reply.setPublication(publication.get());
+            Reply reply = new Reply();
+
+            reply.setDateReply(replyRequest.getDateReply());
+            reply.getPublication().setIdPublication(publicationId);
+            reply.setPicture(replyRequest.getPicture());
+            reply.setContent(replyRequest.getContent());
+
+//            reply.setIdAgent(replyRequest.getIdAgent());
+//            reply.setEmployeeName(replyRequest.getEmployeeName());
+            //reply.setPublication(publication.get());
             Reply createdReply = replyRepository.save(reply);
             return ResponseEntity.ok(createdReply);
         } else {
@@ -154,14 +169,14 @@ public class PublicationApi {
 
     // Delete a reply
     @DeleteMapping("/publications/{publicationId}/reponces/{replyId}")
-    public ResponseEntity<Void> deleteReply(@PathVariable("publicationId") Long publicationId,
-                                            @PathVariable("replyId") Long replyId) {
+    public ResponseEntity<String> deleteReply(@PathVariable("publicationId") Long publicationId,
+                                              @PathVariable("replyId") Long replyId) {
         Optional<Publication> publication = publicationRepository.findById(publicationId);
         Optional<Reply> reply = replyRepository.findById(replyId);
 
         if (publication.isPresent() && reply.isPresent()) {
-            replyRepository.delete(reply.get());
-            return ResponseEntity.noContent().build();
+            replyRepository.deleteById(replyId);
+            return ResponseEntity.ok("Reply deleted");
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -169,3 +184,4 @@ public class PublicationApi {
 
 
 }
+
