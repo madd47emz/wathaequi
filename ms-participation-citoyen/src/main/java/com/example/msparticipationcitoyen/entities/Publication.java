@@ -22,23 +22,38 @@ public class Publication {
     @Enumerated(EnumType.STRING)
     private TypePublication typePublication;
 
-    private String Content;
+    private String content;
 
-    private String Picture;
+    @Lob
+    private byte[] picture;
+
+    private String adresse;
+    private String commune;
+
+    private String wilaya;
+
 
     private Date datePublication;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "publication")
-    private Collection<Reply> Reponces;
+
+
+    @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Collection<Reply> reponces;
+
 
 //    private Long idCommune;
 
     //**********************User
     /*@Transient
     private CitizenAuth citizen;*/
-    @ManyToOne
-    private Citizen citizen;
+//   @ManyToOne
+//   private Citizen citizen;
+
+    private String fullNameCitizen;
+
+    private String idCitizen;
+
+
 
 
 

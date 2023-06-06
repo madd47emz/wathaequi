@@ -90,8 +90,11 @@ public class AuthApplication implements CommandLineRunner {
         agent.setFullName("Bouabdelli lamis");
         agent.setCommune("Sidi Bel Abess");
         agentDao.save(agent);*/
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1
 
 
     }

@@ -19,11 +19,18 @@
     </annotationProcessing>
 <<<<<<< HEAD
     <bytecodeTargetLevel>
+<<<<<<< HEAD
+      <module name="citizens" target="17" />
+      <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
+      <module name="testanes" target="17" />
+      <module name="testing" target="17" />
+=======
       <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
 <<<<<<< HEAD
       <module name="ms-gestion-document-v2" target="17" />
 =======
 >>>>>>> origin/main
+>>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1
     </bytecodeTargetLevel>
 =======
 <<<<<<< HEAD
