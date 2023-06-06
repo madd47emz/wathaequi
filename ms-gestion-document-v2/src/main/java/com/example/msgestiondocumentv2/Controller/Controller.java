@@ -72,13 +72,13 @@ public class Controller {
 //    }
     @GetMapping("user/documents/{nin}")
     public List<Paper> getUserDocuments(@PathVariable("nin") String nin,@RequestHeader("Authorization") String authorizationHeader){
-        String bearerToken = authorizationHeader.replace("Bearer ", "");
+        //String bearerToken = authorizationHeader.replace("Bearer ", "");
 
 
-        if(citizenProx.getUserDetails(nin, "Bearer " + bearerToken)!=null){
+        //if(citizenProx.getUserDetails(nin, "Bearer " + bearerToken)!=null){
             return paperRepo.findPapersByUserId(nin);
-        }
-        return null;
+      //  }
+        //return null;
 
 
     }
