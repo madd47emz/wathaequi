@@ -17,5 +17,14 @@ public interface CitizenDao extends JpaRepository<Citizen,Long> {
     Boolean existsByNin(String nin);
 
 
+    Citizen findCitizensByCommune(@Param("commune") String commune);
+
+
+
+    Citizen findCitizenByNin(String nin);
+    Boolean existsByNin(String nin);
+
+
+
 
 }

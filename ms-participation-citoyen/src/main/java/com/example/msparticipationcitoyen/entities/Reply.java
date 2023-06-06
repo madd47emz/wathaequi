@@ -1,9 +1,11 @@
 package com.example.msparticipationcitoyen.entities;
 
 import com.example.msparticipationcitoyen.model.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +22,17 @@ public class Reply {
 
     private Date dateReply;
 
-    private String Picture;
+    @Lob
+    private byte[] picture;
 
+    @JsonIgnore
     @ManyToOne
     private Publication publication;
     private String Content;
 
-    private Long idAgent;
+//    private Long idAgent;
 
 
     //********************************************************* utilisateur
-    private String employeeName;
+//    private String employeeName;
 }

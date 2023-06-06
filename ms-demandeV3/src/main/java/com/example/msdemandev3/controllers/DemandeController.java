@@ -55,27 +55,42 @@ public class DemandeController {
 
 
     //////to afficher all verify if it's already asigned
-    @PreAuthorize("hasRole('ROLE_AGENT')")
+    /**@PreAuthorize("hasRole('ROLE_AGENT')")
    @GetMapping("all")
        public List<Demande> getAllDemandes() {
        return demandeRepository.findDemandesByEtats("CREATED");
    }
-
+**/
    //create a new demande
 
     @PostMapping("demander")
-    public ResponseEntity<Demande> createDemande(@RequestBody Demande demande) {
-        demande.setDateDeCreation(new Date());
-        demande.setEtats("CREATED");
-        demande.setIdAgent("demande non traité");
-        Demande savedDemande = demandeRepository.save(demande);
-        return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
+    public ResponseEntity<Demande> createDemande(@RequestBody Demande demande, @RequestHeader("Authorization") String authorizationHeader) {
+        String bearerToken = authorizationHeader.replace("Bearer ", "");
+        Citizen user = citizenProx.getUserDetails(demande.getIdUtilisateur(), "Bearer " + bearerToken);
+        if (user != null) {
+
+            demande.setDateDeCreation(new Date());
+            demande.setWilaya(user.getWilaya());
+            demande.setCommune(user.getCommune());
+            demande.setEtats("CREATED");
+            Demande savedDemande = demandeRepository.save(demande);
+            return new ResponseEntity<>(savedDemande, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(new Demande(), HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/getUserInfo/{nin}")
     public Citizen getNin(@PathVariable("nin") String nin, @RequestHeader("Authorization") String authorizationHeader){
        Citizen citizen=citizenProx.getUserDetails(nin,authorizationHeader);
        return citizen;
+    }
+
+    /////////////////////////////////////////////////////////////
+    @GetMapping("/getDemandeParCommune/{wilaya}/{commune}")
+    public List<Demande> getDemande(@PathVariable("wilaya") String wilaya,@PathVariable("commune") String commune){
+
+       return demandeRepository.findDemandesByWilayaAndCommune(wilaya, commune);
     }
 
 
