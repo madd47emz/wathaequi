@@ -26,6 +26,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,8 +74,7 @@ public class Controller {
     public List<Paper> getUserDocuments(@PathVariable("nin") String nin,@RequestHeader("Authorization") String authorizationHeader){
         String bearerToken = authorizationHeader.replace("Bearer ", "");
 
-        // Use the Feign client to get user details with the bearer token
-        Citizen user = citizenProx.getUserDetails(nin, "Bearer " + bearerToken);
+
         if(citizenProx.getUserDetails(nin, "Bearer " + bearerToken)!=null){
             return paperRepo.findPapersByUserId(nin);
         }
@@ -93,6 +93,7 @@ public class Controller {
         Citizen user = citizenProx.getUserDetails(nin, "Bearer " + bearerToken);
 
         if(user!=null){
+            if(paperRepo.existsPaperByUserIdAndNameIgnoreCase(nin,"Extrait de naissance")){
 
 
         PdfReader reader = new PdfReader("naissance.pdf");
@@ -132,6 +133,8 @@ public class Controller {
         headers.setContentDispositionFormData("filename", user.getNin()+"birth_certificate.pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, 200);}
+
+        }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -155,13 +158,14 @@ public class Controller {
                 .body(new InputStreamResource(resource.getInputStream()));
     }
 
-
+    @PreAuthorize("hasRole('AGENT')")
     @PostMapping("/document")
     public String createDocument(@RequestBody PaperRequest payload,@RequestHeader("Authorization") String authorizationHeader){
         String bearerToken = authorizationHeader.replace("Bearer ", "");
-
         if(payload.getAgentId()!=payload.getUserId()){
-        if(citizenProx.getUserDetails(payload.getUserId(),bearerToken)!=null && citizenProx.getUserDetails(payload.getAgentId(),bearerToken)!=null){
+            Citizen agent = citizenProx.getUserDetails(payload.getAgentId(), "Bearer " + bearerToken);
+            Citizen user = citizenProx.getUserDetails(payload.getAgentId(), "Bearer " + bearerToken);
+        if(user!=null && agent!=null){
 
 
 
@@ -171,8 +175,8 @@ public class Controller {
         paper.setType(payload.getType());
         paper.setCreated(payload.getCreated());
         paper.setExpiration(payload.getExpiration());
-        paper.setDemandeId(paper.getDemandeId());
-        paper.setAgentId(paper.getAgentId());
+        paper.setDemandeId(payload.getDemandeId());
+        paper.setAgentId(payload.getAgentId());
         paper.setUserId(payload.getUserId());
 
         return paperRepo.save(paper).getId();}

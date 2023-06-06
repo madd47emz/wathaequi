@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -19,7 +19,8 @@ public class Paper {
 
     List<Attachement> folder;
 
-    private Date created;
+
+    private java.util.Date created;
     private Date expiration;
 
     private String userId;

@@ -2,37 +2,53 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="registry" />
+<<<<<<< HEAD
+=======
         <module name="ms-demandeV3" />
         <module name="auth" />
         <module name="ms-participation-citoyen" />
         <module name="ms-gestion-document-v2" />
         <module name="gateway" />
+>>>>>>> origin/main
       </profile>
     </annotationProcessing>
+<<<<<<< HEAD
     <bytecodeTargetLevel>
+<<<<<<< HEAD
       <module name="citizens" target="17" />
       <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
       <module name="testanes" target="17" />
       <module name="testing" target="17" />
+=======
+      <module name="Ms-Gestion-DemandeDocuments_V1" target="17" />
+<<<<<<< HEAD
+      <module name="ms-gestion-document-v2" target="17" />
+=======
+>>>>>>> origin/main
+>>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1
     </bytecodeTargetLevel>
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> ba29cf96212d59b5556c2c60d80214fd27ea4ebe
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Ms-Gestion-DemandeDocuments_V1" options="-parameters" />
       <module name="auth" options="-parameters" />
       <module name="gateway" options="-parameters" />
+<<<<<<< HEAD
       <module name="ms-demandeV3" options="-parameters" />
+=======
       <module name="ms-gestion-document-v2" options="-parameters" />
+>>>>>>> origin/main
       <module name="ms-participation-citoyen" options="-parameters" />
       <module name="registry" options="-parameters" />
-      <module name="testanes" options="-parameters" />
-      <module name="testing" options="-parameters" />
     </option>
+>>>>>>> b11ee6e1e714b96c1d83c4653ff28f5a8f475500
   </component>
 </project>

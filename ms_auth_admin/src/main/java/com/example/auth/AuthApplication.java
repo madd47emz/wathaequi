@@ -1,8 +1,6 @@
 package com.example.auth;
 
-import com.example.auth.dao.AuthDao;
-import com.example.auth.dao.CitizenDao;
-import com.example.auth.dao.RoleDao;
+import com.example.auth.dao.*;
 import com.example.auth.entities.Auth;
 import com.example.auth.entities.Citizen;
 import com.example.auth.entities.Role;
@@ -26,6 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -36,6 +35,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableEurekaClient
+@EnableFeignClients
 public class AuthApplication implements CommandLineRunner {
     @Autowired
     private AuthDao authDao;
@@ -45,6 +45,8 @@ public class AuthApplication implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
     @Autowired
     CitizenDao citizenDao;
+    @Autowired
+    AgentDao agentDao;
     public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }
@@ -88,6 +90,11 @@ public class AuthApplication implements CommandLineRunner {
         agent.setFullName("Bouabdelli lamis");
         agent.setCommune("Sidi Bel Abess");
         agentDao.save(agent);*/
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1
 
 
     }
