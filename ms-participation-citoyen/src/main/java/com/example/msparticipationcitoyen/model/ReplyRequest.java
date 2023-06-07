@@ -22,8 +22,4 @@ public class ReplyRequest {
 
     private Long idPublication;
     private String Content;
-
-    private Long idAgent;
-
-    private String employeeName;
 }

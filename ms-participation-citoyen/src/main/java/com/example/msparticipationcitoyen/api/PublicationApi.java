@@ -7,9 +7,13 @@ import com.example.msparticipationcitoyen.model.ReplyRequest;
 import com.example.msparticipationcitoyen.repositories.PublicationRepository;
 import com.example.msparticipationcitoyen.repositories.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,17 +90,38 @@ public class PublicationApi {
     // Creer une publication
 
     @PostMapping("/publications")
-    public Publication createPublication(@RequestBody Publication publication) {
+    public ResponseEntity<String> createPublication(
+            @RequestParam("typePublication") String typePublication,
+            @RequestParam("content") String content,
+            @RequestParam("picture") MultipartFile picture,
+            @RequestParam("adresse") String adresse,
+            @RequestParam("commune") String commune,
+            @RequestParam("wilaya") String wilaya,
+            @RequestParam("datePublication") String datePublication,
+            @RequestParam("fullNameCitizen") String fullNameCitizen,
+            @RequestParam("idCitizen") String idCitizen
+    ) {
+        try {
+            System.out.println("typePublication = " + typePublication + ", content = " + content + ", picture = " + picture + ", adresse = " + adresse + ", commune = " + commune + ", wilaya = " + wilaya + ", datePublication = " + datePublication + ", fullNameCitizen = " + fullNameCitizen + ", idCitizen = " + idCitizen);
 
-        if (publication.getTypePublication() == null ||
-                publication.getContent() == null ||
-                publication.getDatePublication() == null ||
-                publication.getIdCitizen() == null || publication.getWilaya() == null ||
-                publication.getCommune() == null || publication.getFullNameCitizen() == null) {
-            throw new IllegalArgumentException("Required fields are missing.");
+            Publication publication = new Publication();
+            publication.setTypePublication(TypePublication.valueOf(typePublication));
+            publication.setContent(content);
+            publication.setPicture(picture.getBytes());
+            publication.setAdresse(adresse);
+            publication.setCommune(commune);
+            publication.setWilaya(wilaya);
+            publication.setDatePublication(Date.valueOf(datePublication));
+            publication.setFullNameCitizen(fullNameCitizen);
+            publication.setIdCitizen(idCitizen);
+
+            publicationRepository.save(publication);
+
+            return ResponseEntity.ok("Publication created successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to create publication: " + e.getMessage());
         }
-
-        return publicationRepository.save(publication);
     }
 
     // Update a publication
@@ -127,19 +152,15 @@ public class PublicationApi {
     // Create a new reply for a publication
     @PostMapping("/publications/{publicationId}/replies")
     public ResponseEntity<Reply> createReply(@PathVariable("publicationId") Long publicationId, @RequestBody ReplyRequest replyRequest) {
-        Optional<Publication> publication = publicationRepository.findById(publicationId);
+        Publication publication = publicationRepository.findById(publicationId).get();
 
-        if (publication.isPresent()) {
+        if (publication!=null) {
             Reply reply = new Reply();
 
             reply.setDateReply(replyRequest.getDateReply());
-            reply.getPublication().setIdPublication(publicationId);
-            reply.setPicture(replyRequest.getPicture());
+            reply.setPublication(publication);
+            //reply.setPicture(replyRequest.getPicture());
             reply.setContent(replyRequest.getContent());
-
-//            reply.setIdAgent(replyRequest.getIdAgent());
-//            reply.setEmployeeName(replyRequest.getEmployeeName());
-            //reply.setPublication(publication.get());
             Reply createdReply = replyRepository.save(reply);
             return ResponseEntity.ok(createdReply);
         } else {

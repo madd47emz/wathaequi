@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name="auth")
 @LoadBalancerClient(name="auth")
 public interface CitizenProx {
-    @GetMapping("/citizens/search/findCitizensByNin")
+    @GetMapping("/citizens/search/findCitizenByNin")
     Citizen getUserDetails(@RequestParam("nin") String nin,
                            @RequestHeader("Authorization") String authorizationHeader);
 }

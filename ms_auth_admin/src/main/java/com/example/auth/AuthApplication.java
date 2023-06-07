@@ -52,49 +52,6 @@ public class AuthApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        roleDao.save(new Role(1L,"ADMIN"));
-        roleDao.save(new Role(2L,"AGENT"));
-        roleDao.save(new Role(3L,"CITIZEN"));
-        List<Role> roles = new ArrayList<>();
-        roles.add(roleDao.findByName("ADMIN"));
-        roles.add(roleDao.findByName("AGENT"));
-        roles.add(roleDao.findByName("CITIZEN"));
-
-        Auth admin= new Auth();
-        admin.setId(1L);
-        admin.setPassword(passwordEncoder.encode("hidaya"));
-        admin.setUsername("admin");
-        admin.setRoles(roles);
-        authDao.save(admin);
-
-        Citizen citizen = new Citizen();
-        citizen.setId(1L);
-        citizen.setNin("admin");
-        citizen.setNationality("Algerian");
-        citizen.setFullNameLat("Bouabdelli lamis");
-        citizen.setFullNameAr("بوعبدلي لميس");
-        citizen.setFather("Father Name");
-        citizen.setMother("Mother Name");
-        citizen.setPartner("Partner Name");
-        citizen.setDayra("Dayra Name");
-        citizen.setCommune("Commune Name");
-        citizen.setWilaya("Wilaya Name");
-        citizen.setBirthdate(new Date());
-        citizen.setGender(Gender.FEMALE);
-        citizen.setStatus(Status.valueOf("Single"));
-
-        citizenDao.save(citizen);
-       /*Agent agent = new Agent();
-        agent.setId(1L);
-        agent.setNin("admin");
-        agent.setFullName("Bouabdelli lamis");
-        agent.setCommune("Sidi Bel Abess");
-        agentDao.save(agent);*/
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1
 
 
     }

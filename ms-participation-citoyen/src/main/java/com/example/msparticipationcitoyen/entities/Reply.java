@@ -1,11 +1,9 @@
 package com.example.msparticipationcitoyen.entities;
 
-import com.example.msparticipationcitoyen.model.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,10 +27,4 @@ public class Reply {
     @ManyToOne
     private Publication publication;
     private String Content;
-
-//    private Long idAgent;
-
-
-    //********************************************************* utilisateur
-//    private String employeeName;
 }

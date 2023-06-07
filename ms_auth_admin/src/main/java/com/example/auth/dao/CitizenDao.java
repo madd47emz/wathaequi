@@ -12,17 +12,12 @@ import java.util.List;
 @RepositoryRestResource
 public interface CitizenDao extends JpaRepository<Citizen,Long> {
     List<Citizen> findCitizensByGender(Gender gender );
-    Citizen findCitizensByNin(@Param("nin")String nin);
-    Citizen findCitizenByNin(String nin);
+    Citizen findCitizenByNin(@Param("nin")String nin);
     Boolean existsByNin(String nin);
 
 
     Citizen findCitizensByCommune(@Param("commune") String commune);
 
-
-
-    Citizen findCitizenByNin(String nin);
-    Boolean existsByNin(String nin);
 
 
 

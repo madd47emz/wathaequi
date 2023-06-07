@@ -1,9 +1,6 @@
-<<<<<<< HEAD:ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/config/SecurityConfig.java
 package com.example.msparticipationcitoyen.config;
-=======
-package com.example.msdemandev3.config;
->>>>>>> 4611864c868eb1c003353b27d9aca9b9c20718c1:ms-demandeV3/ms-demandeV3/src/main/java/com/example/msdemandev3/config/SecurityConfig.java
 
+import com.example.msparticipationcitoyen.config.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

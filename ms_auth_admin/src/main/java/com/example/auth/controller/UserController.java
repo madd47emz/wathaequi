@@ -76,7 +76,7 @@ public class UserController {
     }
     @GetMapping("/profile/{nin}")
     public Citizen getProfile(@PathVariable("nin") String nin){
-        return citizenDao.findCitizensByNin(nin);
+        return citizenDao.findCitizenByNin(nin);
 
     }
     @PreAuthorize("hasRole('ADMIN')")
@@ -140,9 +140,9 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/update/{nin}", method = RequestMethod.PATCH)
     public String update(@RequestBody CitizenDto payload, @PathVariable String nin){
-        Citizen citizen=citizenDao.findCitizensByNin(nin);
+        Citizen citizen=citizenDao.findCitizenByNin(nin);
         System.out.println(citizen);
-        if (citizenDao.findCitizensByNin(nin)!=null){
+        if (citizenDao.findCitizenByNin(nin)!=null){
             if(payload.getFullNameAr().equals("")){
                 citizen.setFullNameAr(citizen.getFullNameAr());
             }
@@ -211,13 +211,13 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value="/delete/{nin}", method = RequestMethod.DELETE)
     public String delete(@PathVariable String nin){
-        if(citizenDao.findCitizensByNin(nin)!=null){
+        if(citizenDao.findCitizenByNin(nin)!=null){
         Auth auth=userDao.findByUsername(nin);
         Agent agent =agentDao.findAgentByNin(nin);
         if(agent != null){
             agentDao.delete(agent);
         }
-        Citizen citizen =citizenDao.findCitizensByNin(nin);
+        Citizen citizen =citizenDao.findCitizenByNin(nin);
         citizenDao.delete(citizen);
         userDao.delete(auth);
         return "deleted";}

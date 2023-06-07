@@ -1,7 +1,5 @@
 package com.example.msparticipationcitoyen.entities;
 
-import com.example.msparticipationcitoyen.model.CitizenAuth;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,15 +37,6 @@ public class Publication {
 
     @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<Reply> reponces;
-
-
-//    private Long idCommune;
-
-    //**********************User
-    /*@Transient
-    private CitizenAuth citizen;*/
-//   @ManyToOne
-//   private Citizen citizen;
 
     private String fullNameCitizen;
 
