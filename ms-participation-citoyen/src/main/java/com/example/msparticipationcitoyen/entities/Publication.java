@@ -35,7 +35,7 @@ public class Publication {
 
 
 
-    @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "publication",cascade = CascadeType.ALL)
     private Collection<Reply> reponces;
 
     private String fullNameCitizen;

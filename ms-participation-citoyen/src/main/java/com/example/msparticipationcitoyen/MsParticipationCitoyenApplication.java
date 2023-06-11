@@ -32,8 +32,20 @@ public class MsParticipationCitoyenApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Publication p1= new Publication(null, TypePublication.Signalement,"Content P1",null,"Adr1","sabra","tlemcen",new Date("01/01/2022"),null,"anes the agent","anesagent");
+        Publication p2= new Publication(null, TypePublication.Signalement,"Content P2",null,"Adr2","sabra","tlemcen",new Date("01/01/2022"),null,"anes the agent","anesagent");
+
+        Publication p3= new Publication(null, TypePublication.Avis,"Content P3",null,"Adr3","sabra","tlemcen",new Date("01/01/2022"),null,"anes the agent","anesagent");
+        Publication p4= new Publication(null, TypePublication.Avis,"Content P4",null,"Adr4","sabra","tlemcen",new Date("01/01/2022"),null,"anes the agent","anesagent");
 
 
-
+        Reply r1= new Reply(null,new Date("01/01/2022"),null,p1,"replyyyy1");
+        Reply r2= new Reply(null,new Date("01/01/2022"),null,p2,"replyyyy1");
+        publicationRepository.save(p1);
+        publicationRepository.save(p2);
+        publicationRepository.save(p3);
+        publicationRepository.save(p4);
+        replyRepository.save(r1);
+        replyRepository.save(r2);
     }
 }

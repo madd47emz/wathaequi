@@ -72,6 +72,13 @@ public class PublicationApi {
         return publicationRepository.findPublicationsByTypePublicationAndCommuneAndWilaya(TypePublication.Signalement,commune,wilaya);
     }
 
+    //Afficher avis par commune et wilaya
+    @GetMapping("/avis/{wilaya}/{commune}")
+
+    public List<Publication> avisParCommuneWilaya(@PathVariable(value = "commune") String commune,@PathVariable(value = "wilaya") String wilaya) {
+        return publicationRepository.findPublicationsByTypePublicationAndCommuneAndWilaya(TypePublication.Avis,commune,wilaya);
+    }
+
 
 
 
@@ -196,6 +203,7 @@ public class PublicationApi {
         Optional<Reply> reply = replyRepository.findById(replyId);
 
         if (publication.isPresent() && reply.isPresent()) {
+            System.out.println("publicationId = " + publicationId + ", replyId = " + replyId);
             replyRepository.deleteById(replyId);
             return ResponseEntity.ok("Reply deleted");
         } else {
