@@ -11,7 +11,7 @@ public class User {
 
     private String nin;
 
-    private String name;
+    private String fullNameLat;
 
 
 

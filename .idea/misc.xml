@@ -4,20 +4,14 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/ms-gestion-document/pom.xml" />
-        <option value="$PROJECT_DIR$/ms-gestion-document-v2/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
-        <option value="$PROJECT_DIR$/ms_example_citizen/pom.xml" />
-        <option value="$PROJECT_DIR$/registry/pom.xml" />
         <option value="$PROJECT_DIR$/ms-demandeV3/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-gestion-document-v2/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-notification/pom.xml" />
         <option value="$PROJECT_DIR$/ms-participation-citoyen/pom.xml" />
+        <option value="$PROJECT_DIR$/ms_auth_admin/pom.xml" />
+        <option value="$PROJECT_DIR$/registry/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/ms_example_citizen/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">

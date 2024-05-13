@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @LoadBalancerClient(name = "auth")
 public interface UserProxy {
 
-    @GetMapping("/citizens/search/findCitizensByNin")
+    @GetMapping("/citizens/search/findCitizenByNin")
     User getUserDetails(@RequestParam("nin") String nin, @RequestHeader("Authorization") String authorizationHeader);
 }

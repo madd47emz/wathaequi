@@ -14,7 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 @Slf4j
 public class NotificationController {
 
@@ -30,7 +30,7 @@ public class NotificationController {
     @Autowired
     UserProxy userProxy;
 
-    @PostMapping("/sms/{nin}")
+    @PostMapping("/sendNotif/{nin}")
     public String processSMS(@PathVariable("nin") String nin,@RequestBody Notification notification){
         log.info("processSMS started" + notification.toString());
         UserContact userContact = userContactRepository.findUserContactByNin(nin);
@@ -41,7 +41,7 @@ public class NotificationController {
     @PostMapping("/saveContact/{nin}")
     public UserContact saveContact(@PathVariable("nin") String nin,@RequestHeader("Authorization") String authorizationHeader,@RequestBody Contact contact){
         User n = userProxy.getUserDetails(nin,authorizationHeader);
-        UserContact userContact = new UserContact(null,n.getNin(),n.getName(),new Contact(contact.getNumero()));
+        UserContact userContact = new UserContact(null,n.getNin(),n.getFullNameLat(),new Contact(contact.getNumero()));
         userContactRepository.save(userContact);
         return  userContact;
     }

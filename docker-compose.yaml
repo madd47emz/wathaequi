@@ -1,18 +1,127 @@
 version: "3.8"
 services:
-  mongo:
-    image: mongo:5.0
-    container_name: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-    restart: unless-stopped
+  eureka-server:
+    image: registry-image
     ports:
-      - "27017:27017"
+      - 8888:8888
+
+  gateway-service:
+    image: gateway-image
+    depends_on:
+      - eureka-server
+    ports:
+      - 7778:7778
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+
+
+  ms-auth-service:
+    build: /ms_auth_admin/
+    image: ms-auth-image
+    depends_on:
+      - eureka-server
+      - gateway-service
+      - db-auth
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+      spring.datasource.url: "${url}"
+      spring.datasource.password: "${password}"
+    restart: on-failure
+
+
+  ms-demande-service:
+    build: /ms-demandeV3/
+    image: ms-demande-image
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+
+
+  ms-gestion-document-service:
+    build: /ms-gestion-document-v2/
+    image: ms-gestion-document-image
+    depends_on:
+      - eureka-server
+      - gateway-service
+      - mongo
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+      spring.data.mongodb.host: "mongo"
+      spring.data.mongodb.port: 27017
+      spring.data.mongodb.database: "${gestion-document}"
+
+    restart: on-failure
+
+  ms-notification-service:
+    build: /ms-notification/
+    image: ms-notification-image
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+
+  ms-citizen-social-service:
+    build: /ms-participation-citoyen/
+    image: ms-citizen-social-image
+    depends_on:
+      - eureka-server
+      - gateway-service
+    environment:
+      profile: "default"
+      eureka.client.serviceUrl.defaultZone: "http://eureka-server:8888/eureka"
+
+  db-auth:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${password}"
+      MYSQL_DATABASE: "${users}"
     volumes:
-      - ./database/db:/data/db
-      - ./database/dev.archive:/Databases/dev.archive
-      - ./database/production:/Databases/production
+      - db-auth:/var/lib/mysql
+  db-demandes:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${password}"
+      MYSQL_DATABASE: "${demandes}"
+    volumes:
+      - db-demandes:/var/lib/mysql
+
+  db-notifications:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${password}"
+      MYSQL_DATABASE: "${notifications}"
+    volumes:
+      - db-notifications:/var/lib/mysql
+
+  db-citizen-social:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${password}"
+      MYSQL_DATABASE: "${citizen-social}"
+    volumes:
+      - db-citizen-social:/var/lib/mysql
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-volume/db:/data/db
+      - ./mongo-volume/dev.archive:/Databases/dev.archive
+      - ./mongo-volume/production:/Databases/production
+    restart: unless-stopped
+
   mongo-express:
     image: mongo-express
     container_name: mexpress

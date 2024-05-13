@@ -52,6 +52,20 @@ public class AuthApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
+        roleDao.save(new Role(1L,"ADMIN"));
+        roleDao.save(new Role(2L,"AGENT"));
+        roleDao.save(new Role(3L,"CITIZEN"));
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleDao.findByName("ADMIN"));
+        roles.add(roleDao.findByName("AGENT"));
+        roles.add(roleDao.findByName("CITIZEN"));
+
+        Auth admin= new Auth();
+        admin.setId(1L);
+        admin.setPassword(passwordEncoder.encode("0798800970"));
+        admin.setUsername("mohamed");
+        admin.setRoles(roles);
+        authDao.save(admin);
 
 
     }
