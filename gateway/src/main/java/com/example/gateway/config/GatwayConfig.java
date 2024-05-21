@@ -24,19 +24,19 @@ public class GatwayConfig {
 
                 .route("auth-service", r -> r.path("/auth/**")
                         .filters(f -> f.rewritePath("/auth/(?<s>.*)","/${s}").filter(filter))
-                        .uri("http://localhost:8094/"))
+                        .uri("lb://auth"))
                 .route("sms-service", r -> r.path("/sms/**")
                         .filters(f -> f.rewritePath("/sms/(?<s>.*)","/${s}").filter(filter))
-                        .uri("http://localhost:8080/"))
+                        .uri("lb://ms-notif"))
                 .route("demande-service", r -> r.path("/demande/**")
                   .filters(f -> f.rewritePath("/demande/(?<s>.*)","/${s}").filter(filter))
-                  .uri("http://localhost:8083/"))
+                  .uri("lb://demande"))
                 .route("ms-gestion-document", r -> r.path("/document/**")
                         .filters(f -> f.rewritePath("/document/(?<s>.*)","/${s}").filter(filter))
                         .uri("lb://ms-gestion-document"))
                 .route("ms-participation-citoyen", r -> r.path("/forum/**")
                         .filters(f -> f.rewritePath("/forum/(?<s>.*)","/${s}").filter(filter))
-                        .uri("http://localhost:4201/"))
+                        .uri("lb://ms-participation-citoyen"))
 
                 .build();
     }

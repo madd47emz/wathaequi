@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-notification-service
+  name: ms-notification-service
+spec:
+  containers:
+    - env:
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka-server:8888/eureka
+        - name: profile
+          value: default
+        - name: spring.datasource.password
+          value: password
+        - name: spring.datasource.url
+          value: jdbc:mysql://mysql:3306/notifications
+      image: ms-notification-image
+      name: ms-notification-service
+      resources: {}
+  restartPolicy: OnFailure
+status: {}

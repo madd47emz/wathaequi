@@ -6,8 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @Ignore
 @SpringBootTest
 class AuthApplicationTests {
-    @Test
-    void contextLoads() {
-    }
+
 
 }

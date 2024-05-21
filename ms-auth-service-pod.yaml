@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-auth-service
+  name: ms-auth-service
+spec:
+  containers:
+    - env:
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka-server:8888/eureka
+        - name: profile
+          value: default
+        - name: spring.datasource.password
+          value: password
+        - name: spring.datasource.url
+          value: jdbc:mysql://mysql:3306/users
+      image: ms-auth-image
+      name: ms-auth-service
+      resources: {}
+  restartPolicy: OnFailure
+status: {}

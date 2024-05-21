@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-gestion-document-service
+  name: ms-gestion-document-service
+spec:
+  containers:
+    - env:
+        - name: eureka.client.serviceUrl.defaultZone
+          value: http://eureka-server:8888/eureka
+        - name: profile
+          value: default
+        - name: spring.data.mongodb.database
+          value: gestion-document
+        - name: spring.data.mongodb.host
+          value: mongo
+        - name: spring.data.mongodb.port
+          value: "27017"
+      image: ms-gestion-document-image
+      name: ms-gestion-document-service
+      resources: {}
+  restartPolicy: OnFailure
+status: {}
