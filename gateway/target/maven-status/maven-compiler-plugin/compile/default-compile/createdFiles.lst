@@ -1,0 +1,5 @@
+com/example/gateway/config/GatwayConfig.class
+com/example/gateway/config/JwtUtil.class
+com/example/gateway/config/AuthenticationFilter.class
+com/example/gateway/GatewayApplication.class
+com/example/gateway/config/RouterValidator.class

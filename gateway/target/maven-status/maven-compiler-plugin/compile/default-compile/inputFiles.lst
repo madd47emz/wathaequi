@@ -1,0 +1,5 @@
+/home/madd47emz/wathaequi/gateway/src/main/java/com/example/gateway/config/RouterValidator.java
+/home/madd47emz/wathaequi/gateway/src/main/java/com/example/gateway/config/JwtUtil.java
+/home/madd47emz/wathaequi/gateway/src/main/java/com/example/gateway/GatewayApplication.java
+/home/madd47emz/wathaequi/gateway/src/main/java/com/example/gateway/config/GatwayConfig.java
+/home/madd47emz/wathaequi/gateway/src/main/java/com/example/gateway/config/AuthenticationFilter.java
