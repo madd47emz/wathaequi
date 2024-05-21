@@ -1,0 +1,10 @@
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/entities/TypePublication.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/config/SecurityConfig.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/model/ReplyRequest.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/repositories/PublicationRepository.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/entities/Publication.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/api/PublicationApi.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/repositories/ReplyRepository.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/config/JwtAuthenticationFilter.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/MsParticipationCitoyenApplication.java
+/home/madd47emz/wathaequi/ms-participation-citoyen/src/main/java/com/example/msparticipationcitoyen/entities/Reply.java

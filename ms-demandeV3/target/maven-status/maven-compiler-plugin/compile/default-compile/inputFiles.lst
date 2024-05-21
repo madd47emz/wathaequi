@@ -1,0 +1,12 @@
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/entity/Demande.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/config/JwtAuthenticationFilter.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/model/Contact.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/model/Citizen.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/config/SecurityConfig.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/model/Documents.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/proxy/UtilisateurProxy.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/MsDemandeV3Application.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/model/Utilisateur.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/controllers/DemandeController.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/proxy/CitizenProx.java
+/home/madd47emz/wathaequi/ms-demandeV3/src/main/java/com/example/msdemandev3/repositories/DemandeRepository.java

@@ -1,0 +1,11 @@
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/MsGestionDocumentV2Application.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Dao/PaperRepo.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Entity/Paper.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/config/JwtAuthenticationFilter.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Proxy/CitizenProx.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/config/SecurityConfig.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Dto/Citizen.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Controller/Controller.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Dao/AttachmentRepo.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Entity/Attachement.java
+/home/madd47emz/wathaequi/ms-gestion-document-v2/src/main/java/com/example/msgestiondocumentv2/Dto/PaperRequest.java

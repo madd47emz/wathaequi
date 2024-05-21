@@ -1,0 +1,12 @@
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/model/User.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/service/NotificationService.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/config/SecurityConfig.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/MsNotificationApplication.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/controller/NotificationController.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/proxy/UserProxy.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/config/JwtAuthenticationFilter.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/repositories/UserContactRepository.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/repositories/NotificationRepository.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/entity/Contact.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/entity/UserContact.java
+/home/madd47emz/wathaequi/ms-notification/src/main/java/com/example/msnotification/entity/Notification.java
